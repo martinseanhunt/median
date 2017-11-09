@@ -1,0 +1,65 @@
+/*--- BASE STYLING & TYPOGRAPHY ---*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+}
+
+h1 {
+  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+}
+
+
+/*--- BUTTONS & FORM ELEMENTS ---*/
+
+.btn {
+  border: 1px solid rgba(0,0,0,.15);
+  color: rgba(0,0,0,.54);
+  border-radius: 4px;
+  line-height: 32px;
+  padding: 0 16px;
+  font-size: 0.82em;
+  cursor: pointer; 
+  transition: border .5s ease-out;
+  outline: none;
+}
+
+.btn:hover {
+  border-color: rgba(0,0,0,0.8);
+}
+
+
+/*--- LAYOUT & GRID ---*/
+
+.app {
+
+}
+
+.grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  flex-grow: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid__col { flex-basis: 100%; }
+
+.deskop-only { display: none; }
+
+@media (min-width: 500px) {
+  .grid__col--1 { flex-basis: 33.3333%; }
+
+  .grid__col--alignleft { text-align: left; }
+
+  .grid__col--aligncenter { text-align: center; }
+
+  .grid__col--alignright { text-align: right; }
+
+  .deskop-only { display: block; }
+}
+
+
