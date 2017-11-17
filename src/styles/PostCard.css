@@ -1,0 +1,66 @@
+.post-card {
+  text-decoration: none;
+}
+
+.post-card__inner { 
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 2px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.post-card__image {
+  height: 0;
+  padding-bottom: 30%;
+  background: url(../img/defaultbg.png) repeat;
+}
+
+.post-card__content {
+  padding: 16px;
+}
+
+.post-card__category {
+  font-weight: 400;
+  color: rgba(0,0,0,.54)!important;
+  font-size: 0.85em;
+  display: block;
+}
+
+.post-card__title {
+  margin: 5px 0 10px 0;
+  color: rgba(0,0,0,.84);
+}
+
+.post-card__body {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+
+.post-card__meta { 
+  display: flex;
+  padding: 0 16px 16px 16px;
+}
+
+.post-card__user-image { 
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 50%;
+  background: url(../img/defaultbg.png) repeat;
+  margin-right: 15px;
+}
+
+.post-card__meta-info { 
+  padding-top: 3px;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.post-card__user-name {
+  display: block;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.84);
+  margin-bottom: 5px;
+}

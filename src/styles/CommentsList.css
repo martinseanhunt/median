@@ -1,0 +1,60 @@
+.comments-list__comment {
+  padding: 20px;
+  margin: 20px 0 0 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.09);
+  border-radius: 3px;
+}
+
+.comments-list__meta { 
+  display: flex;
+}
+
+.comments-list__user-image { 
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 50%;
+  background: url(../img/defaultbg.png) repeat;
+  margin-right: 10px;
+}
+
+.comments-list__meta-info { 
+  padding-top: 3px;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.comments-list__user-name {
+  display: block;
+  font-size: 13px;
+  color: #3E8432;
+  margin-bottom: 6px;
+}
+
+.comments-list__body {
+  font-size: 16px;
+  line-height: 24px;
+  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  color: rgba(0,0,0,.80);
+  margin: 20px 0 30px 0;
+  width: 100%;
+}
+
+.comments-list__vote {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.comments-list__vote-number {
+  padding: 0 0 0 7px;
+  position: relative;
+  top: -7px;
+  font-size: 13px;
+}
+
+.comments-list__clap {
+  color: rgb(52, 231, 154);
+  fill: rgb(3, 168, 124);
+}

@@ -3,40 +3,44 @@ import { Route } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getAllPosts } from '../actions'
-import Header from '../components/Header'
 import '../styles/App.css';
+import Header from '../components/Header'
+import Home from './Home'
+import NewPost from './NewPost'
+import Article from './Article'
+import { getAllPosts, getAllCategories } from '../actions'
+
 
 class App extends Component {
   componentDidMount() {
-    // Trigger action creator
+    this.props.getAllPosts()
+    this.props.getAllCategories()
   }
 
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header page={this.props.location.pathname} />
+
         <Route exact path="/" render={() => (
-          <div>Home page fools</div>
+          <Home />
         )} />
-        <Route path="/article" render={() => (
-          <div>article page fools</div>
+
+        <Route exact path="/post" render={() => (
+          <NewPost />
         )} />
+        
+        <Route path="/article/:id" component={Article} />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ posts }) => {
- return {
-  posts
- }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    getAllPosts
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    getAllPosts, 
+    getAllCategories
   }, dispatch)
-}
+)
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App)

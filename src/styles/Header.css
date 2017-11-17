@@ -1,8 +1,22 @@
-.header > * { 
+.header {
+  margin-bottom: 50px;
+}
+
+.header--page {
+  box-shadow: 0 2px 2px -2px rgba(0,0,0,.15);
+  margin-bottom: 0;
+}
+
+.header__inner > * { 
   align-self: center;
 }
 
 .header__heading {  
   font-size: 2.2em;
   margin: 15px 0;
+}
+
+.header__heading a {
+  text-decoration: none;
+  color: rgba(0,0,0,.84);
 }

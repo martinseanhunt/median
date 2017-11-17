@@ -2227,3 +2227,17 @@ In the future, we might start automatically compiling incompatible third-party m
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
+
+## TODO
+
+1. Save user to state when commenting or adding post and grab that user if it's available
+
+2. Move upvote/downvote in to dedicated component
+
+3. Use redux for posts, just add on or subtract from the activePost by sending an action on each interval, then send a seperate action to handle the update on mouse up
+
+4. Link up category on post-detail page
+
+5. Make success in to a component
+
+6. Import svgs - comments list etc

@@ -1,5 +1,5 @@
 
-const api = "http://localhost:3001/"
+const api = "http://localhost:3001"
 
 const headers = {
   'Accept': 'application/json',
@@ -9,20 +9,18 @@ const headers = {
 export const getCategoryList = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
-    .then(data => console.log(data))
 
 export const getCategoryPosts = (category) =>
   fetch(`${api}/category/${category}`, { headers })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => data)
 
 export const getAllPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
-    .then(data => console.log(data))
 
 export const createPost = (post) =>
-  fetch(`${api}/posts/${post.id}`, {
+  fetch(`${api}/posts`, {
     method: 'POST',
     headers: {
       ...headers,
@@ -30,23 +28,34 @@ export const createPost = (post) =>
     },
     body: JSON.stringify(post)
   }).then(res => res.json())
-    .then(data => console.log(data))
 
 export const getPost = (id) =>
   fetch(`${api}/posts/${id}`, { headers })
   .then(res => res.json())
-  .then(data => console.log(data))
 
-export const votePost = (id, option) =>
+export const getComments = (id) =>
+  fetch(`${api}/posts/${id}/comments`, { headers })
+    .then(res => res.json())
+
+export const createComment = (comment) =>
+  fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(comment)
+  }).then(res => res.json())
+
+export const addVotes = (id, votes) =>
   fetch(`${api}/posts/${id}`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(option)
+    body: JSON.stringify(votes)
   }).then(res => res.json())
-    .then(data => console.log(data))
 
 export const updatePost = (id, updates) =>
   fetch(`${api}/posts/${id}`, {
@@ -57,13 +66,13 @@ export const updatePost = (id, updates) =>
     },
     body: JSON.stringify({ updates })
   }).then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => data)
 
 export const deletePost = (id, updates) =>
   fetch(`${api}/books/${id}`, {
     method: 'DELETE',
     headers: { headers }})
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => data)
 
 // Add comments

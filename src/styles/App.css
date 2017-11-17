@@ -6,10 +6,19 @@
 
 body {
   font-family: BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  color: rgba(0,0,0,.84);
 }
 
 h1 {
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+}
+
+h2 {
+  font-size: 1.2em
+}
+
+h3 {
+  font-size: 1.1em;
 }
 
 
@@ -25,33 +34,86 @@ h1 {
   cursor: pointer; 
   transition: border .5s ease-out;
   outline: none;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn:hover {
   border-color: rgba(0,0,0,0.8);
 }
 
+.success {
+  border: 1px solid #3E8432;
+  border-radius: 3px;
+  font-size: 13px;
+  padding: 13px;
+  margin: 20px 0 0 0;
+  position: relative;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.success__message {
+  color: #3E8432;
+}
+
+.success__emoji {
+  position: absolute;
+  top: 8px;
+  right: 13px;
+  font-size: 22px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
 
 /*--- LAYOUT & GRID ---*/
 
-.app {
-
+.row {
+  
 }
 
 .grid {
-  max-width: 1000px;
-  margin: 0 auto;
+  flex-basis: 100%;
   flex-grow: 0;
   display: flex;
   flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.grid__col { flex-basis: 100%; }
+.grid__col { 
+  flex-basis: 100%; 
+  padding-right: 20px;
+}
+
+.grid__col::last-of-type {
+  padding-right: 0;
+}
 
 .deskop-only { display: none; }
 
 @media (min-width: 500px) {
-  .grid__col--1 { flex-basis: 33.3333%; }
+  .grid__col--1 { flex-basis: 33.3333%; max-width: 33.3333%; overflow: hidden; }
+
+  .grid__col--2 { flex-basis: 50%; max-width: 50%; overflow: hidden; }
+
+  .grid__col--3 { flex-basis: 100%; max-width: 100%; overflow: hidden; }
 
   .grid__col--alignleft { text-align: left; }
 

@@ -1,0 +1,125 @@
+.post-form {
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.post-form > * {
+  outline: none;
+}
+
+.post-form__header {
+  color: rgba(0,0,0,.54);
+  font-size: 0.86em;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  padding: 15px 0 10px 0;
+  position: relative;
+  user-select: none;
+}
+
+.post-form__header:before {
+  content: "\A";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-1px);
+  left: -20px;
+  width: 7px;
+  height: 7px;
+  box-shadow:0 0 5px 10px rgba(255,255,255,0);
+  border-radius: 100%;
+  background: #03a87c;
+  opacity: .8;
+  animation: dot-animate 2s 2;
+}
+
+.post-form__dropdown-title {
+  line-height: 35px;
+}
+
+.post-form__user { 
+  padding-top: 35px; 
+  display: flex;
+}
+
+.post-form__user-image { 
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 50%;
+  background: url(../img/defaultbg.png) repeat;
+}
+
+.post-form__user-details { 
+  padding: 2px 0 0 15px;
+}
+
+.post-form__user-name {
+  display: block;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: rgba(0,0,0,.84);
+}
+
+.post-form__post-type {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+  cursor: default;
+}
+
+.post-form__user-name::placeholder {
+  color: #b3b3b1;
+}
+
+.post-form .medium-editor-placeholder:after {
+  position: static;
+  font-style: normal;
+}
+
+.post-form__fields {
+  margin-bottom: 30px;
+}
+
+.post-form__fields > * {
+  cursor: text;
+  outline: none;
+  display: block;
+}
+
+.post-form__fields > *::placeholder {
+  color: #b3b3b1;
+}
+
+.post-form__title {
+  color: rgba(0,0,0,.84);
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 600;
+  margin: 25px 0 0 0;
+  vertical-align: middle;
+  border: none;
+  font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+  letter-spacing: 0;
+}
+
+.post-form__body {
+  font-size: 21px;
+  color: rgba(0,0,0,.84);
+  margin-top: 10px;
+  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  line-height: 33.18px;
+}
+
+@keyframes dot-animate{
+  0%{
+    box-shadow:0 0 0 0 #34e79a
+  }
+  70%{
+    box-shadow:0 0 5px 10px rgba(255,255,255,0)
+  }
+  100%{
+    box-shadow:0 0 0 0 rgba(255,255,255,0)
+  }
+}
+
+
+

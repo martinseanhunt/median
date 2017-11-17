@@ -1,0 +1,21 @@
+.posts-list { position: relative; }
+
+.posts-list__title {
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  position: relative;
+  margin-bottom: 20px;
+  padding-bottom: 25px;
+}
+
+.posts-list__order-by {
+  position: absolute;
+  top: 12px; 
+  right: 15px;
+  font-size: 13px;
+  color: rgba(0,0,0,.54);
+}
+
+.posts-list__title span {
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(0,0,0,.54);
+}
