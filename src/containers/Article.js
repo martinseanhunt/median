@@ -46,7 +46,7 @@ class Article extends Component {
             dangerouslySetInnerHTML={this.createMarkup(activePost.body)}>
           </div>
 
-          <Claps post={activePost}/>
+          <Claps post={activePost} context="Article"/>
 
           <div className="article__categories">
             <span className="article__category">{activePost.category}</span>

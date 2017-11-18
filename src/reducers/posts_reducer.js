@@ -27,13 +27,18 @@ export function posts(state = {}, action) {
       return state.map(post => {
         if(post.id === action.payload){
           const myDownvotes = post.myDownvotes || 0
-          return {...post, voteScore: post.voteScore + 1, myUpvotes: myDownvotes + 1}
+          return {...post, voteScore: post.voteScore - 1, myDownvotes: myDownvotes + 1}
         }
         return post
       })
     case VOTES_SAVED_TO_SERVER: 
       return state.map(post => action.payload.id === post.id
         ? {...post, voteScore: action.payload.voteScore, myUpvotes: 0, myDownvotes: 0}
+        : post
+      )
+    case RESET_LOCAL_VOTES: 
+      return state.map(post => action.payload === post.id
+        ? {...post, myUpvotes: 0, myDownvotes: 0}
         : post
       )
     default: 

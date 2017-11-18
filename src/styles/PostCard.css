@@ -10,6 +10,7 @@
 }
 
 .post-card__image {
+  display: block;
   height: 0;
   padding-bottom: 30%;
   background: url(../img/defaultbg.png) repeat;
@@ -17,6 +18,11 @@
 
 .post-card__content {
   padding: 16px;
+}
+
+.post-card__content a{
+  text-decoration: none;
+  color: inherit;
 }
 
 .post-card__category {

@@ -55,12 +55,6 @@
   font-size: 14px;
 }
 
-.claps {
-  position: fixed;
-  top: 150px;
-  transform: translateX(-150px);
-}
-
 .comments {
   background: rgb(250, 250, 250);
   padding: 35px 0;

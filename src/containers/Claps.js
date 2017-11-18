@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { addVoteLocally ,postVotesToServer } from '../actions'
+import { addVoteLocally, postVotesToServer } from '../actions'
+import '../styles/Claps.css'
 
 class Claps extends Component {
   state = {
@@ -10,11 +11,12 @@ class Claps extends Component {
   }
 
   startVoting = (voteType) => {
-    this.props.addVoteLocally(this.props.post.id, voteType)
-    const upVoting = setInterval(() => {
-        this.props.addVoteLocally(this.props.post.id, voteType)
+    const { post } = this.props
+    this.props.addVoteLocally(post.id, voteType)
+    const voteInterval = setInterval(() => {
+        this.props.addVoteLocally(post.id, voteType)
     }, 200)
-    this.setState({ voteInterval: upVoting })
+    this.setState({ voteInterval })
   }
 
   stopVoting = () => {
@@ -36,7 +38,7 @@ class Claps extends Component {
   render(){
     const { post } = this.props
     return(
-      <div className="claps">
+      <div className={`claps claps--${this.props.context}`}>
         <button 
           onMouseDown={() => this.startVoting('upVote')}
           onMouseUp={this.stopVoting}

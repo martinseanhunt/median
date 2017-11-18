@@ -2,28 +2,30 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import striptags from 'striptags'
 import moment from 'moment'
+
 import '../styles/PostCard.css'
+import Claps from '../containers/Claps'
 
 const PostCard = props => {
   const { post } = props
   const body = post.body.length < 85
     ? striptags(post.body)
     : striptags(post.body.substring(0,85) + '...')
+  const postLink = `/article/${post.id}`
 
   return(
-    <Link 
-      to={`/article/${post.id}`}
-      className="grid__col grid__col--1 post-card"
-    >
+    <div className="grid__col grid__col--1 post-card">
       <div className="post-card__inner">
-        <div className="post-card__image"></div>
+        <Link to={postLink} className="post-card__image"></Link>
 
         <div className="post-card__content">
           <span className="post-card__category">{post.category}</span>
-          <h3 className="post-card__title">{post.title}</h3>
-          <p className="post-card__body">{body}</p>
+          <h3 className="post-card__title"><Link to={postLink}>{post.title}</Link></h3>
+          <p className="post-card__body"><Link to={postLink}>{body}</Link></p>
         </div>
-        {post.voteScore}
+
+        <Claps post={post} context="PostCard" />
+
         <div className="post-card__meta">
           <div className="post-card__user-image"></div>
           <div className="post-card__meta-info">
@@ -32,7 +34,7 @@ const PostCard = props => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   )
 }         
 

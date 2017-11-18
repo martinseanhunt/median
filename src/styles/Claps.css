@@ -1,0 +1,5 @@
+.claps--Article {
+  position: fixed;
+  top: 150px;
+  transform: translateX(-150px);
+}
