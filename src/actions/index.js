@@ -8,8 +8,11 @@ export const RECIEVE_COMMENTS = 'RECIEVE_COMMENTS'
 export const SET_LOADING  = 'SET_LOADING'
 export const SET_LOADING_COMMENTS = 'SET_LOADING_COMMENTS'
 export const RECIEVE_COMMENT = 'RECIEVE_COMMENT'
-export const UPVOTES_ADDED = 'UPVOTES_ADDED'
+export const VOTES_SAVED_TO_SERVER = 'VOTES_SAVED_TO_SERVER'
+export const SAVE_UPVOTE_LOCALLY = 'SAVE_UPVOTE_LOCALLY'
+export const SAVE_DOWNVOTE_LOCALLY = 'SAVE_DOWNVOTE_LOCALLY'
 export const ORDER_POSTS = 'ORDER_POSTS'
+export const RESET_LOCAL_VOTES = 'RESET_LOCAL_VOTES'
 
 export const recieveAllPosts = payload => ({
   type: RECIEVE_ALL_POSTS,
@@ -102,13 +105,30 @@ export const getAllCategories = () => dispatch => (
 )
 
 
-export const upvotesAdded = payload => ({
-  type: UPVOTES_ADDED,
+export const upvotesSaved = payload => ({
+  type: VOTES_SAVED_TO_SERVER,
   payload
 })
 
-export const addUpvotes = (id, votes) => dispatch => {
+export const addVoteLocally = (postId, voteType) => {
+  const actionType = voteType === 'upVote' 
+    ? SAVE_UPVOTE_LOCALLY
+    : SAVE_DOWNVOTE_LOCALLY
+
+  return { 
+    type: actionType,
+    payload: postId
+  }
+}
+
+export const resetLocalVotes = (payload) => ({
+  type: RESET_LOCAL_VOTES,
+  payload
+})
+
+export const postVotesToServer = (id, votes) => dispatch => {
+  dispatch(resetLocalVotes(id))
   return Api.addVotes(id, votes)
-    .then(res => dispatch(upvotesAdded(res)))
-    .then(() => dispatch(getAllPosts()))
+    .then(res => dispatch(upvotesSaved(res)))
+    //.then(() => dispatch(getAllPosts()))
 }

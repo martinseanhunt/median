@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import '../styles/PostsList.css';
-import PostCard from './PostCard'
-import DropDown from './DropDown'
+import PostCard from '../components/PostCard'
+import DropDown from '../components/DropDown'
 import { orderPosts } from '../actions'
 import { sortPostsSelector } from '../reducers/posts_reducer'
 
@@ -32,7 +32,7 @@ class PostList extends Component {
           </div>
         </div>
         <div className="posts-list__posts grid">
-          {posts.length && posts.map(post => (
+          {posts.length > 0 && posts.map(post => (
             <PostCard post={post} key={post.id} />
           ))}
         </div>

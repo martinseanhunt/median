@@ -6,9 +6,9 @@ import '../styles/PostCard.css'
 
 const PostCard = props => {
   const { post } = props
-  const body = post.body.length < 180
+  const body = post.body.length < 85
     ? striptags(post.body)
-    : striptags(post.body.substring(0,180) + '...')
+    : striptags(post.body.substring(0,85) + '...')
 
   return(
     <Link 

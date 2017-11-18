@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import PostsList from '../components/PostsList'
+import PostsList from './PostsList'
 
 class Home extends Component {
   render() {

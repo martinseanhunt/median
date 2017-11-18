@@ -2238,6 +2238,12 @@ If you have ideas for more “How To” recipes that should be on this page, [le
 
 4. Link up category on post-detail page
 
-5. Make success in to a component
+5. Put comments in own component and get info from store
 
-6. Import svgs - comments list etc
+6. Green border on user images
+
+7. CSS animation when click comment form
+
+8. Style loading
+
+9. Style not found

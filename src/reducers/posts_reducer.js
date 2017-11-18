@@ -1,4 +1,13 @@
-import { RECIEVE_ALL_POSTS, NEW_POST_CREATED, RECIEVE_POST, UPVOTES_ADDED, ORDER_POSTS } from '../actions'
+import { 
+  RECIEVE_ALL_POSTS, 
+  NEW_POST_CREATED, 
+  RECIEVE_POST, 
+  VOTES_SAVED_TO_SERVER, 
+  ORDER_POSTS, 
+  SAVE_UPVOTE_LOCALLY,
+  SAVE_DOWNVOTE_LOCALLY,
+  RESET_LOCAL_VOTES
+} from '../actions'
 
 export function posts(state = {}, action) {
   switch(action.type) {
@@ -6,6 +15,27 @@ export function posts(state = {}, action) {
       return action.payload
     case NEW_POST_CREATED:
       return [...state, action.payload]
+    case SAVE_UPVOTE_LOCALLY:
+      return state.map(post => {
+        if(post.id === action.payload){
+          const myUpvotes = post.myUpvotes || 0
+          return {...post, voteScore: post.voteScore + 1, myUpvotes: myUpvotes + 1}
+        }
+        return post
+      })
+    case SAVE_DOWNVOTE_LOCALLY:
+      return state.map(post => {
+        if(post.id === action.payload){
+          const myDownvotes = post.myDownvotes || 0
+          return {...post, voteScore: post.voteScore + 1, myUpvotes: myDownvotes + 1}
+        }
+        return post
+      })
+    case VOTES_SAVED_TO_SERVER: 
+      return state.map(post => action.payload.id === post.id
+        ? {...post, voteScore: action.payload.voteScore, myUpvotes: 0, myDownvotes: 0}
+        : post
+      )
     default: 
       return state
   }
@@ -13,10 +43,22 @@ export function posts(state = {}, action) {
 
 export function activePost(state = {}, action) {
   switch(action.type) {
-    case UPVOTES_ADDED: 
-      return {...state, voteScore: action.payload.voteScore}
+    case VOTES_SAVED_TO_SERVER: 
+      return {...state, voteScore: action.payload.voteScore, myUpvotes: 0}
     case RECIEVE_POST: 
       return action.payload
+    case SAVE_UPVOTE_LOCALLY:
+      const myUpvotes = state.myUpvotes || 0
+      return action.payload === state.id 
+        ? {...state, voteScore: state.voteScore + 1, myUpvotes: myUpvotes + 1}
+        : state
+    case SAVE_DOWNVOTE_LOCALLY:
+      const myDownvotes = state.myDownvotes || 0
+      return action.payload === state.id 
+        ? {...state, voteScore: state.voteScore - 1, myDownvotes: myDownvotes + 1}
+        : state
+    case RESET_LOCAL_VOTES: 
+      return {...state, myUpvotes: 0, myDownvotes: 0}
     default: 
       return state
   }
