@@ -1,0 +1,30 @@
+.categories {
+  padding: 0 10px 16px 10px;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+}
+
+.categories:before {
+  content: "\A";
+  border-top: 1px solid rgba(0,0,0,.05);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.categories li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.categories a {
+  color: rgba(0, 0, 0, 0.54);
+  text-decoration: none;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.categories__active a {
+  color: rgba(0, 0, 0, 0.84);
+}
+

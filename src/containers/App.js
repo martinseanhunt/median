@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import '../styles/App.css';
 import Header from '../components/Header'
-import Home from './Home'
+import Dashboard from './Home'
 import NewPost from './NewPost'
 import Article from './Article'
+import EditPost from './EditPost'
 import { getAllPosts, getAllCategories } from '../actions'
 
 
@@ -22,15 +23,26 @@ class App extends Component {
       <div className="App">
         <Header page={this.props.location.pathname} />
 
-        <Route exact path="/" render={() => (
-          <Home />
-        )} />
+        <Switch>
+          <Route exact path="/" component={Dashboard} />
 
-        <Route exact path="/post" render={() => (
-          <NewPost />
-        )} />
-        
-        <Route path="/article/:id" component={Article} />
+          <Route path="/categories/:category" component={Dashboard} />
+
+          <Route path="/categories" component={Dashboard} />
+
+          <Route exact path="/post/:category" component={NewPost} />
+
+          <Route exact path="/post" component={NewPost} />
+
+          <Route exact path="/article/:id/edit" component={EditPost} />
+
+          <Route exact path="/:category/:id/edit" component={EditPost} />
+
+          <Route exact path="/:category/:id" component={Article} />
+
+          <Route exact path="/article/:id" component={Article} />
+
+        </Switch>
       </div>
     );
   }

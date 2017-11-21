@@ -8,10 +8,12 @@ import Claps from '../containers/Claps'
 
 const PostCard = props => {
   const { post } = props
-  const body = post.body.length < 85
-    ? striptags(post.body)
-    : striptags(post.body.substring(0,85) + '...')
-  const postLink = `/article/${post.id}`
+  const title = post.updates ? post.updates.title : post.title
+  const fullBody = post.updates ? post.updates.body : post.body
+  const body = fullBody.length < 85
+    ? striptags(fullBody)
+    : striptags(fullBody.substring(0,85) + '...')
+  const postLink = `/${post.category}/${post.id}`
 
   return(
     <div className="grid__col grid__col--1 post-card">
@@ -20,7 +22,7 @@ const PostCard = props => {
 
         <div className="post-card__content">
           <span className="post-card__category">{post.category}</span>
-          <h3 className="post-card__title"><Link to={postLink}>{post.title}</Link></h3>
+          <h3 className="post-card__title"><Link to={postLink}>{title}</Link></h3>
           <p className="post-card__body"><Link to={postLink}>{body}</Link></p>
         </div>
 

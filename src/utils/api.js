@@ -57,6 +57,16 @@ export const addVotes = (id, votes) =>
     body: JSON.stringify(votes)
   }).then(res => res.json())
 
+export const addVotesToComment = (id, votes) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(votes)
+  }).then(res => res.json())
+
 export const updatePost = (id, updates) =>
   fetch(`${api}/posts/${id}`, {
     method: 'PUT',
@@ -66,13 +76,23 @@ export const updatePost = (id, updates) =>
     },
     body: JSON.stringify({ updates })
   }).then(res => res.json())
-    .then(data => data)
 
-export const deletePost = (id, updates) =>
-  fetch(`${api}/books/${id}`, {
+export const deletePost = (id) =>
+  fetch(`${api}/posts/${id}`, {
     method: 'DELETE',
-    headers: { headers }})
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    }})
     .then(res => res.json())
-    .then(data => data)
+
+export const deleteComment = (id) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    }})
+    .then(res => res.json())
 
 // Add comments

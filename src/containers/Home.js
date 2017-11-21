@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import PostsList from './PostsList'
 
-class Home extends Component {
+class Dashboard extends Component {
   render() {
     return (
-      <PostsList title="All Posts"/>
+      <div className="home">
+        <PostsList title={this.props.match.params.category || 'All Posts'} category={this.props.match.params.category}/>
+      </div>
     )
   }
 }
 
-const mapStateToProps = ({ posts, orderBy }) => ({ posts, orderBy })
+const mapStateToProps = ({ posts, categories }) => ({ posts, categories })
 
-export default connect(mapStateToProps)(Home);
+export default withRouter(connect(mapStateToProps)(Dashboard));

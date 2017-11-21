@@ -9,18 +9,37 @@ import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/default.css'
 
 import '../styles/NewPost.css'
-import { createNewPost } from '../actions'
+import { createNewPost, editPost } from '../actions'
 import DropDown from '../components/DropDown'
 import ValidationErrors from '../components/ValidationErrors'
 
 class NewPost extends Component {
-  state = {
-    title: '',
-    body: '',
-    author: '',
-    selectedCategory: '',
-    validationErrors: false
+  constructor(props) {
+    super(props)
+    const { editing, match } = this.props
+    this.state = editing ? 
+      {
+        title: editing.updates ? editing.updates.title : editing.title,
+        body: editing.updates ? editing.updates.body : editing.body,
+        author: editing.author,
+        selectedCategory: editing.category,
+        validationErrors: false
+      } : 
+      {
+        title: '',
+        body: '',
+        author: '',
+        selectedCategory: match.params.category,
+        validationErrors: false
+      }
   }
+
+  sanitize = html => sanitizeHtml(html, {
+    allowedTags: [ 'b', 'i', 'u', 'b', 'a', 'strong', 'h2', 'h3', 'blockquote' ],
+    allowedAttributes: {
+      'a': [ 'href' ]
+    }
+  })
 
   onSubmitPost = () => {
     if (!this.state.title || !this.state.body || !this.state.author || !this.state.selectedCategory ){
@@ -35,7 +54,7 @@ class NewPost extends Component {
       id: uuidv1(),
       timestamp: Date.now(),
       title: this.state.title,
-      body: sanitizeHtml(this.state.body),
+      body: this.sanitize(this.state.body),
       category: this.state.selectedCategory,
       author: this.state.author
     })
@@ -43,9 +62,28 @@ class NewPost extends Component {
     this.props.history.push('/')
   }
 
+  onEditPost = () => {
+    if (!this.state.title || !this.state.body ){
+      setTimeout(function(){
+        this.setState({validationErrors:false});
+      }.bind(this),3000)
+
+      return this.setState({ validationErrors: true })
+    }
+
+    this.props.editPost(this.props.editing.id, {
+      title: this.state.title,
+      body: this.sanitize(this.state.body)
+    })
+
+    this.props.history.push(`/article/${this.props.editing.id}`)
+  }
+
   onSelect = (selectedCategory) => this.setState({ selectedCategory })
 
   render() {
+    const { editing } = this.props
+    const type = editing ? 'Editing' : 'Draft'
     return (
       <div className="row grid">
         <div className="grid__col grid__col--3">
@@ -53,25 +91,38 @@ class NewPost extends Component {
             {this.state.validationErrors && 
               <ValidationErrors />
             }
-            <div className="post-form__header">
-              <span className="post-form__dropdown-title">Post to category: </span>
-              <DropDown 
-              items={this.props.categories}
-              onSelect={this.onSelect}
-              selectedItem={this.state.selectedCategory || 'Select Category'}
-              />
-            </div>
+            
+            {editing ? (
+              <div className="post-form__header">
+                <span className="post-form__dropdown-title">Category: {this.state.selectedCategory}</span>
+              </div>
+            ) : (
+              <div className="post-form__header">
+                <span className="post-form__dropdown-title">Post to category: </span>
+                <DropDown 
+                items={this.props.categories}
+                onSelect={this.onSelect}
+                selectedItem={this.state.selectedCategory || 'Select Category'}
+                />
+              </div>
+            )}
 
             <div className="post-form__user">
               <div className="post-form__user-image"></div>
               <div className="post-form__user-details">
-                <input 
-                  className="post-form__user-name" 
-                  placeholder="Type Your User Name"
-                  text={this.state.userName}
-                  onChange={e => this.setState({ author: e.target.value })}
-                />
-                <span className="post-form__post-type">Draft</span>
+                {editing ? (
+                  <span className="post-form__user-name">{this.state.author}</span>
+                ) : (
+                  <input 
+                    className="post-form__user-name" 
+                    placeholder="Type Your User Name"
+                    value={this.state.author}
+                    onChange={e => this.setState({ author: e.target.value })}
+                  />
+                )}
+                <span className="post-form__post-type">
+                  {type}
+                </span>
               </div>
             </div>
 
@@ -79,7 +130,7 @@ class NewPost extends Component {
               <input 
                 className="post-form__title" 
                 placeholder="Post Title"
-                text={this.state.title}
+                value={this.state.title}
                 onChange={e => this.setState({ title: e.target.value })}
               />
               <Editor
@@ -89,10 +140,17 @@ class NewPost extends Component {
                 className="post-form__body"
               />
             </div>
-            <button 
-              className="btn"
-              onClick={this.onSubmitPost}
-            >Create New Post</button>
+            {editing ? (
+              <button 
+                className="btn"
+                onClick={this.onEditPost}
+              >Edit Post</button>
+            ) : (
+              <button 
+                className="btn"
+                onClick={this.onSubmitPost}
+              >Create New Post</button>
+            )}
           </div>
         </div>
       </div>
@@ -106,7 +164,8 @@ const mapStateToProps = ({ categories }) => ({
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    createNewPost
+    createNewPost,
+    editPost
   }, dispatch)
 }
 

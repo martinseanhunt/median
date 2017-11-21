@@ -5,12 +5,13 @@
   position: relative;
   margin-bottom: 20px;
   padding-bottom: 25px;
+  text-transform: capitalize;
 }
 
 .posts-list__order-by {
   position: absolute;
   top: 12px; 
-  right: 15px;
+  right: 6px;
   font-size: 13px;
   color: rgba(0,0,0,.54);
 }

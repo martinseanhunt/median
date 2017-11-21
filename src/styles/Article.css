@@ -45,6 +45,10 @@
   line-height: 34px;
 }
 
+.article__body b {
+  font-weight: bold;
+}
+
 .article__category {
   color: rgba(0,0,0,.68);
   background: rgba(0,0,0,.05);
@@ -53,6 +57,10 @@
   display: inline-block;
   padding: 8px 10px;
   font-size: 14px;
+}
+
+.article__category a {
+  text-decoration: none;
 }
 
 .comments {

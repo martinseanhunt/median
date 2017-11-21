@@ -99,11 +99,11 @@ h3 {
 
 .grid__col { 
   flex-basis: 100%; 
-  padding-right: 20px;
+  padding: 0 10px;
 }
 
-.grid__col::last-of-type {
-  padding-right: 0;
+.grid__col.grid__nopadd {
+  padding: 0;
 }
 
 .deskop-only { display: none; }

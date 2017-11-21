@@ -2232,18 +2232,22 @@ If you have ideas for more “How To” recipes that should be on this page, [le
 
 1. Save user to state when commenting or adding post and grab that user if it's available
 
-2. Move upvote/downvote in to dedicated component
-
-3. Use redux for posts, just add on or subtract from the activePost by sending an action on each interval, then send a seperate action to handle the update on mouse up
-
 4. Link up category on post-detail page
-
-5. Put comments in own component and get info from store
-
-6. Green border on user images
-
-7. CSS animation when click comment form
 
 8. Style loading
 
 9. Style not found
+
+11. rename home.js properly to dashboard
+
+13. Make sure routes are as per rubric and edit edit link from article view
+
+14. Rename NewPost now I'm using it for both editing and creating
+
+15. refactor newPost and other components make sure destructurnign values from props etc
+
+17. Refactor reducers
+
+18. VOting animations / styling
+
+19. Refactor ALL components

@@ -15,7 +15,11 @@ class PostList extends Component {
   }
 
   render() {
-    const { posts, title, orderBy } = this.props
+    const { posts, title, orderBy, category } = this.props
+
+    const filteredPosts = category 
+      ? posts.filter(post => post.category === category )
+      : posts
 
     return (
       <div className="row grid posts-list">
@@ -25,14 +29,14 @@ class PostList extends Component {
           <div className="posts-list__order-by">
             <span>Order By: </span>
             <DropDown 
-            items={[{ name: 'score' }, { name: 'date' }, { name: 'title' }]}
+            items={[{ name: 'date' }, { name: 'score' }, { name: 'title' }]}
             onSelect={this.orderBy}
             selectedItem={orderBy || 'Order By'}
             />
           </div>
         </div>
         <div className="posts-list__posts grid">
-          {posts.length > 0 && posts.map(post => (
+          {filteredPosts.length > 0 && filteredPosts.map(post => (
             <PostCard post={post} key={post.id} />
           ))}
         </div>

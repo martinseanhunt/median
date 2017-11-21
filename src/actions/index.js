@@ -13,6 +13,9 @@ export const SAVE_UPVOTE_LOCALLY = 'SAVE_UPVOTE_LOCALLY'
 export const SAVE_DOWNVOTE_LOCALLY = 'SAVE_DOWNVOTE_LOCALLY'
 export const ORDER_POSTS = 'ORDER_POSTS'
 export const RESET_LOCAL_VOTES = 'RESET_LOCAL_VOTES'
+export const POST_DELETED = 'POST_DELETED'
+export const POST_EDITED = 'POST_EDITED'
+export const COMMENT_DELETED = 'COMMENT_DELETED'
 
 export const recieveAllPosts = payload => ({
   type: RECIEVE_ALL_POSTS,
@@ -94,6 +97,46 @@ export const createNewPost = post => dispatch => {
 }
 
 
+export const postEdited = payload => ({
+  type: POST_EDITED,
+  payload
+})
+
+export const editPost = (id, post) => dispatch => {
+  dispatch(setLoading(true))
+  return Api.updatePost(id, post)
+    .then(post => {
+      dispatch(postEdited(post))
+      dispatch(setLoading(false))
+    })
+}
+
+
+export const postDeleted = payload => ({
+  type: POST_DELETED,
+  payload
+})
+
+export const deletePost = (id) => dispatch => {
+  return Api.deletePost(id)
+    .then(post => {
+      dispatch(postDeleted(id))
+    })
+}
+
+export const commentDeleted = payload => ({
+  type: COMMENT_DELETED,
+  payload
+})
+
+export const deleteComment = (id) => dispatch => {
+  return Api.deleteComment(id)
+    .then(post => {
+      dispatch(commentDeleted(id))
+    })
+}
+
+
 export const recieveAllCategories = payload => ({
   type: RECIEVE_ALL_CATEGORIES,
   payload
@@ -105,6 +148,9 @@ export const getAllCategories = () => dispatch => (
 )
 
 
+// Not currently utilising this action in any way. If we save the votescore as it comes back from 
+// the server, it could look strange if more than one person was voting at the same time because 
+// the returned value wouldn't match your # of votes. Better to get other peoples votes on refresh
 export const upvotesSaved = payload => ({
   type: VOTES_SAVED_TO_SERVER,
   payload
@@ -126,9 +172,12 @@ export const resetLocalVotes = (payload) => ({
   payload
 })
 
-export const postVotesToServer = (id, votes) => dispatch => {
-  dispatch(resetLocalVotes(id))
+export const postVotesToServer = (id, votes, contentType) => dispatch => {
+  dispatch(resetLocalVotes(id))  
+  if(contentType === 'comment')
+    return Api.addVotesToComment(id, votes)
+      .then(res => dispatch(upvotesSaved(res)))
+
   return Api.addVotes(id, votes)
     .then(res => dispatch(upvotesSaved(res)))
-    //.then(() => dispatch(getAllPosts()))
 }

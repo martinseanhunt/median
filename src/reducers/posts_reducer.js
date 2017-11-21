@@ -2,11 +2,12 @@ import {
   RECIEVE_ALL_POSTS, 
   NEW_POST_CREATED, 
   RECIEVE_POST, 
-  VOTES_SAVED_TO_SERVER, 
   ORDER_POSTS, 
   SAVE_UPVOTE_LOCALLY,
   SAVE_DOWNVOTE_LOCALLY,
-  RESET_LOCAL_VOTES
+  RESET_LOCAL_VOTES,
+  POST_DELETED,
+  POST_EDITED
 } from '../actions'
 
 export function posts(state = {}, action) {
@@ -31,16 +32,15 @@ export function posts(state = {}, action) {
         }
         return post
       })
-    case VOTES_SAVED_TO_SERVER: 
-      return state.map(post => action.payload.id === post.id
-        ? {...post, voteScore: action.payload.voteScore, myUpvotes: 0, myDownvotes: 0}
-        : post
-      )
     case RESET_LOCAL_VOTES: 
       return state.map(post => action.payload === post.id
         ? {...post, myUpvotes: 0, myDownvotes: 0}
         : post
       )
+    case POST_DELETED:
+      return state.filter(post => post.id !== action.payload)
+    case POST_EDITED: 
+      return [...state.filter(post => post.id !== action.payload.id), action.payload]
     default: 
       return state
   }
@@ -48,8 +48,6 @@ export function posts(state = {}, action) {
 
 export function activePost(state = {}, action) {
   switch(action.type) {
-    case VOTES_SAVED_TO_SERVER: 
-      return {...state, voteScore: action.payload.voteScore, myUpvotes: 0}
     case RECIEVE_POST: 
       return action.payload
     case SAVE_UPVOTE_LOCALLY:
@@ -64,12 +62,16 @@ export function activePost(state = {}, action) {
         : state
     case RESET_LOCAL_VOTES: 
       return {...state, myUpvotes: 0, myDownvotes: 0}
+    case POST_DELETED: 
+      return {}
+    case POST_EDITED:
+      return action.payload
     default: 
       return state
   }
 }
 
-export function orderBy(state = 'score', action) {
+export function orderBy(state = 'date', action) {
   switch(action.type) {
     case ORDER_POSTS:
       return action.payload
