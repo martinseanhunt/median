@@ -12,7 +12,7 @@ class Categories extends Component {
         <li className={activeCategory || 'categories__active'}><Link to="/">All</Link></li>
         {categories.length > 0 && categories.map(category => 
           <li key={category.name} className={activeCategory === category.name ? 'categories__active' : 'c'}>
-            <Link to={`/categories/${category.name}`}>{category.name}</Link>
+            <Link to={`/${category.name}`}>{category.name}</Link>
           </li>
         )}
       </ul>

@@ -33,7 +33,7 @@ class PostCard extends Component {
           <Claps post={post} context="PostCard" />
 
           <button onClick={() => deletePost(post.id)}>Delete Post</button>
-          <Link to={`/article/${post.id}/edit`}>Edit Post</Link>
+          <Link to={`/${post.category}/${post.id}/edit`}>Edit Post</Link>
 
           <div className="post-card__meta">
             <div className="post-card__user-image"></div>

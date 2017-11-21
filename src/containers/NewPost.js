@@ -76,7 +76,7 @@ class NewPost extends Component {
       body: this.sanitize(this.state.body)
     })
 
-    this.props.history.push(`/article/${this.props.editing.id}`)
+    this.props.history.push(`/${this.state.selectedCategory}/${this.props.editing.id}`)
   }
 
   onSelect = (selectedCategory) => this.setState({ selectedCategory })
@@ -144,7 +144,7 @@ class NewPost extends Component {
               <button 
                 className="btn"
                 onClick={this.onEditPost}
-              >Edit Post</button>
+              >Save Edits</button>
             ) : (
               <button 
                 className="btn"

@@ -9,16 +9,21 @@ import Categories from '../containers/Categories'
 // this way...
 
 class Header extends Component {
+  isCatPage = (page, categories) => categories.length 
+    && categories.filter(cat => cat.name === page.substr(1)).length
+
   headerModifier = () => {
-    const { page } = this.props
+    const { page, categories } = this.props
+
     const urlSegment = page.split('/')[1]
-    return this.props.page === '/' || urlSegment === 'categories'
+    return this.props.page === '/' || this.isCatPage(page, categories)
       ? ''
       : 'header--page'
   }
 
   render() {
-    const { page } = this.props
+    console.log('header rendered')
+    const { page, categories } = this.props
     const urlSegments = page.split('/')
     return (
       <header className={`row header ${this.headerModifier()}`}>
@@ -36,8 +41,8 @@ class Header extends Component {
             Search & user <span role="img" aria-label="construction emoji">🛠</span>
           </div>
 
-          {(page === '/' || urlSegments[1] === 'categories') &&
-            <Categories activeCategory={urlSegments[2]}/>
+          {(page === '/' || this.isCatPage(page, categories) > 0) &&
+            <Categories activeCategory={urlSegments[1]}/>
           }
         </div>
       </header>

@@ -72,7 +72,7 @@ class Article extends Component {
           </div>
 
           <button onClick={this.deletePost}>Delete Post</button>
-          <Link to={`/article/${activePost.id}/edit`}>Edit Post</Link>
+          <Link to={`/${activePost.category}/${activePost.id}/edit`}>Edit Post</Link>
 
         </div>
 
