@@ -5,7 +5,9 @@ import {
   SAVE_UPVOTE_LOCALLY,
   SAVE_DOWNVOTE_LOCALLY,
   RESET_LOCAL_VOTES,
-  COMMENT_DELETED
+  COMMENT_DELETED,
+  SET_COMMENT_EDITING,
+  COMMENT_UPDATED
 } from '../actions'
 
 function activeComments(state = { loading: false, comments: [] }, action) {
@@ -47,10 +49,25 @@ function activeComments(state = { loading: false, comments: [] }, action) {
         )
       }
     case COMMENT_DELETED:
-      console.log(action.payload)
       return {
         ...state,
         comments: state.comments.filter(comment => action.payload !== comment.id )
+      }
+    case SET_COMMENT_EDITING:
+      return {
+        ...state,
+        comments: state.comments.map(comment => comment.id === action.payload.id 
+          ? {...comment, editing: action.payload.editing}
+          : {...comment, editing: false}
+        )
+      }
+    case COMMENT_UPDATED: 
+      return {
+        ...state,
+        comments: [
+          ...state.comments
+          .filter(comment => comment.id !== action.payload.id), action.payload
+        ]
       }
     default:         
       return state

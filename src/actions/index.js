@@ -16,6 +16,8 @@ export const RESET_LOCAL_VOTES = 'RESET_LOCAL_VOTES'
 export const POST_DELETED = 'POST_DELETED'
 export const POST_EDITED = 'POST_EDITED'
 export const COMMENT_DELETED = 'COMMENT_DELETED'
+export const SET_COMMENT_EDITING = 'SET_COMMENT_EDITING'
+export const COMMENT_UPDATED = 'COMMENT_UPDATED'
 
 export const recieveAllPosts = payload => ({
   type: RECIEVE_ALL_POSTS,
@@ -124,6 +126,7 @@ export const deletePost = (id) => dispatch => {
     })
 }
 
+
 export const commentDeleted = payload => ({
   type: COMMENT_DELETED,
   payload
@@ -137,6 +140,19 @@ export const deleteComment = (id) => dispatch => {
 }
 
 
+export const commentUpdated = payload => ({
+  type: COMMENT_UPDATED,
+  payload
+})
+
+export const updateComment = (id, update) => dispatch => {
+  return Api.updateComment(id, update)
+    .then(post => {
+      dispatch(commentUpdated(post))
+    })
+}
+
+
 export const recieveAllCategories = payload => ({
   type: RECIEVE_ALL_CATEGORIES,
   payload
@@ -146,6 +162,14 @@ export const getAllCategories = () => dispatch => (
   Api.getCategoryList()
     .then(categories => dispatch(recieveAllCategories(categories)))
 )
+
+export const setCommentEditing = (id, editing) => ({
+  type: SET_COMMENT_EDITING,
+  payload: {
+    id,
+    editing
+  }
+})
 
 
 // Not currently utilising this action in any way. If we save the votescore as it comes back from 

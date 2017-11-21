@@ -77,6 +77,16 @@ export const updatePost = (id, updates) =>
     body: JSON.stringify({ updates })
   }).then(res => res.json())
 
+export const updateComment = (id, update) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ body: update, timestamp: Date.now() })
+  }).then(res => res.json())
+
 export const deletePost = (id) =>
   fetch(`${api}/posts/${id}`, {
     method: 'DELETE',

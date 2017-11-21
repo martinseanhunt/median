@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
-import Editor from 'react-medium-editor';
+import Editor from 'react-medium-editor'
 import sanitizeHtml from 'sanitize-html'
 import striptags from 'striptags'
 import 'medium-editor/dist/css/medium-editor.css'
