@@ -6,7 +6,6 @@ import '../styles/PostsList.css';
 import PostCard from '../components/PostCard'
 import DropDown from '../components/DropDown'
 import { orderPosts } from '../actions'
-import { sortPostsSelector } from '../reducers/posts_reducer'
 
 class PostList extends Component { 
 
@@ -16,8 +15,6 @@ class PostList extends Component {
 
   render() {
     const { posts, title, orderBy, category } = this.props
-
-    console.log(posts)
 
     const filteredPosts = category 
       ? posts.filter(post => post.category === category )
@@ -48,12 +45,10 @@ class PostList extends Component {
 }
 
 
-const mapStateToProps = ({ orderBy, posts }) => { 
-  return {
+const mapStateToProps = ({ orderBy, posts }) => ({
     orderBy,
     posts 
-  }
-}
+})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({orderPosts}, dispatch)
 

@@ -14,15 +14,12 @@ class Header extends Component {
 
   headerModifier = () => {
     const { page, categories } = this.props
-
-    const urlSegment = page.split('/')[1]
     return this.props.page === '/' || this.isCatPage(page, categories)
       ? ''
       : 'header--page'
   }
 
   render() {
-    console.log('header rendered')
     const { page, categories } = this.props
     const urlSegments = page.split('/')
     return (

@@ -42,15 +42,13 @@ export function posts(state = {}, action) {
     case POST_EDITED: 
       return [...state.filter(post => post.id !== action.payload.id), action.payload]
     case ORDER_POSTS: 
-      console.log('sorting posts', action.payload)
       return [...state.sort((a,b) => {
         switch(action.payload) {
           case 'score':
             return a.voteScore < b.voteScore
           case 'title':
             return a.title > b.title
-          case 'date':
-            console.log(a, b)
+          default:
             return a.timestamp < b.timestamp
         }                       
       })]
@@ -104,24 +102,4 @@ export function voting(state = false, action) {
     default:
       return state
   }
-}
-
-export function sortPostsSelector(posts, orderBy) {
-  console.log('resorting posts')
-  const sortPosts = (a,b) => {
-    switch(orderBy) {
-      case 'score':
-        return a.voteScore < b.voteScore
-      case 'title':
-        return a.title > b.title
-      case 'date':
-        return a.timestamp < b.timestamp
-      default:
-        return a.voteScore < b.voteScore
-    }
-  }
-
-  return posts.length 
-      ? posts.sort(sortPosts)
-      : []
 }
