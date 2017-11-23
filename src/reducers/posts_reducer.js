@@ -47,7 +47,9 @@ export function posts(state = {}, action) {
           case 'score':
             return a.voteScore < b.voteScore
           case 'title':
-            return a.title > b.title
+            const aUp = a.title.toUpperCase()
+            const bUp = b.title.toUpperCase()
+            return (aUp < bUp) ? -1 : (aUp > bUp) ? 1 : 0
           default:
             return a.timestamp < b.timestamp
         }                       

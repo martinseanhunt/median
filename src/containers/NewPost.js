@@ -9,7 +9,7 @@ import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/default.css'
 
 import '../styles/NewPost.css'
-import { createNewPost, editPost } from '../actions'
+import { createNewPost, editPost, orderPosts, clearErrors } from '../actions'
 import DropDown from '../components/DropDown'
 import ValidationErrors from '../components/ValidationErrors'
 
@@ -34,6 +34,10 @@ class NewPost extends Component {
       }
   }
 
+  componentDidMount() {
+    this.props.clearErrors()
+  }
+
   sanitize = html => sanitizeHtml(html, {
     allowedTags: [ 'b', 'i', 'u', 'b', 'a', 'strong', 'h2', 'h3', 'blockquote' ],
     allowedAttributes: {
@@ -41,33 +45,52 @@ class NewPost extends Component {
     }
   })
 
-  onSubmitPost = () => {
+  onSubmitPost = (e) => {
+    const btnVal = e.target.value
+    e.persist()
+    e.target.disabled = true
+    e.target.value = 'Loading...'
     if (!this.state.title || !this.state.body || !this.state.author || !this.state.selectedCategory ){
       setTimeout(function(){
-        this.setState({validationErrors:false});
+        this.setState({validationErrors:false})
       }.bind(this),3000)
 
+      e.target.disabled = false
+      e.target.value = btnVal
       return this.setState({ validationErrors: true })
     }
 
+    const id = uuidv1()
+    // I don't think this is the way to handle the error when the post is too long but I couldn't
+    // Figure out how else to do it? Help?
     this.props.createNewPost({
-      id: uuidv1(),
+      id,
       timestamp: Date.now(),
       title: this.state.title,
       body: this.sanitize(this.state.body),
       category: this.state.selectedCategory,
       author: this.state.author
     })
-
-    this.props.history.push('/')
+    .then(() => {
+      this.props.orderPosts(this.props.orderBy)
+      e.target.disabled = false
+      e.target.value = btnVal
+      !this.props.error.error && this.props.history.push(`/${this.state.selectedCategory}/${id}`)
+    })
   }
 
-  onEditPost = () => {
+  onEditPost = (e) => {
+    const btnVal = e.target.value
+    e.persist()
+    e.target.disabled = true
+    e.target.value = 'Loading...'
     if (!this.state.title || !this.state.body ){
       setTimeout(function(){
         this.setState({validationErrors:false});
       }.bind(this),3000)
 
+      e.target.disabled = false
+      e.target.value = btnVal
       return this.setState({ validationErrors: true })
     }
 
@@ -75,21 +98,30 @@ class NewPost extends Component {
       title: this.state.title,
       body: this.sanitize(this.state.body)
     })
-
-    this.props.history.push(`/${this.state.selectedCategory}/${this.props.editing.id}`)
+    .then(() => {
+      this.props.orderPosts(this.props.orderBy)
+      e.target.disabled = false
+      e.target.value = btnVal
+      !this.props.error.error && this.props.history.push(`/${this.state.selectedCategory}/${this.props.editing.id}`)
+    })
   }
 
   onSelect = (selectedCategory) => this.setState({ selectedCategory })
 
+  scrollTop = () => document.body.scrollTop = document.documentElement.scrollTop = 0
+
   render() {
-    const { editing } = this.props
+    const { editing, error } = this.props
     const type = editing ? 'Editing' : 'Draft'
+
+    error.error && this.scrollTop()
+
     return (
       <div className="row grid">
         <div className="grid__col grid__col--3">
           <div className="post-form">
-            {this.state.validationErrors && 
-              <ValidationErrors />
+            {(this.state.validationErrors || error.error ) && 
+              <ValidationErrors errors={error.error || 'Please fill in all fields'}/>
             }
             
             {editing ? (
@@ -158,14 +190,20 @@ class NewPost extends Component {
   }
 }
 
-const mapStateToProps = ({ categories }) => ({
-  categories
-})
+const mapStateToProps = ({ categories, error, orderBy }, ownProps) => {
+  return { 
+    categories,
+    error,
+    orderBy 
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
     createNewPost,
-    editPost
+    editPost,
+    orderPosts,
+    clearErrors
   }, dispatch)
 }
 

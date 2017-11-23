@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { posts, activePost, orderBy, voting } from './posts_reducer'
 import { loading } from './loading_reducer'
+import { error } from './error_reducer'
 import activeComments from './comments_reducer'
 import categories from './categories_reducer'
 
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
   posts,
   orderBy,
   categories,
-  loading
+  loading,
+  error
 })
 
 export default rootReducer

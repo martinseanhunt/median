@@ -17,6 +17,11 @@
     "thunk": "0.0.1",
     "uuid": "^3.1.0"
   },
+  "now": {
+    "name": "median",
+    "dotenv": ".env.production",
+    "public": true
+  },
   "devDependencies": {
     "react-scripts": "1.0.17"
   },

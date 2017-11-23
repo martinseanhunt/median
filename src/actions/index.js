@@ -18,6 +18,8 @@ export const POST_EDITED = 'POST_EDITED'
 export const COMMENT_DELETED = 'COMMENT_DELETED'
 export const SET_COMMENT_EDITING = 'SET_COMMENT_EDITING'
 export const COMMENT_UPDATED = 'COMMENT_UPDATED'
+export const SET_ERROR = 'SET_ERROR'
+export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 
 export const recieveAllPosts = (payload) => ({
   type: RECIEVE_ALL_POSTS,
@@ -38,6 +40,16 @@ export const orderPosts = payload => ({
 
 export const setLoading = payload => ({
   type: SET_LOADING,
+  payload
+})
+
+export const setError = payload => ({
+  type: SET_ERROR,
+  payload
+})
+
+export const clearErrors = payload => ({
+  type: CLEAR_ERRORS,
   payload
 })
 
@@ -94,9 +106,13 @@ export const newPostCreated = payload => ({
   payload
 })
 
+// I don't think this is the way to handle the error when the post is too long but I couldn't
+// Figure out how else to do it? Help?
 export const createNewPost = post => dispatch => {
-  Api.createPost(post)
+  dispatch(clearErrors())
+  return Api.createPost(post)
     .then(post => dispatch(newPostCreated(post)))
+    .catch(() => dispatch(setError('There was an error on our server, maybe your post was too long!')))
 }
 
 
@@ -105,13 +121,13 @@ export const postEdited = payload => ({
   payload
 })
 
+// I don't think this is the way to handle the error when the post is too long but I couldn't
+// Figure out how else to do it? Help?
 export const editPost = (id, post) => dispatch => {
-  dispatch(setLoading(true))
+  dispatch(clearErrors())
   return Api.updatePost(id, post)
-    .then(post => {
-      dispatch(postEdited(post))
-      dispatch(setLoading(false))
-    })
+    .then(post => dispatch(postEdited(post)))
+    .catch(() => dispatch(setError('There was an error on our server, maybe your post was too long!')))
 }
 
 
