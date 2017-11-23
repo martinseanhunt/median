@@ -2,18 +2,21 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { addVoteLocally, postVotesToServer } from '../actions'
+import { addVoteLocally, postVotesToServer, orderPosts } from '../actions'
 import FontAwesome from 'react-fontawesome'
 import '../styles/Claps.css'
 
 class Claps extends Component {
   state = {
+    voting: false,
     voteInterval: null
   }
 
   startVoting = (voteType) => {
     const { post } = this.props
     this.props.addVoteLocally(post.id, voteType)
+    // set this here so the css animation still works even if you only add one vote
+    this.setState({ voting: true })
     const voteInterval = setInterval(() => {
         this.props.addVoteLocally(post.id, voteType)
     }, 200)
@@ -21,8 +24,15 @@ class Claps extends Component {
   }
 
   stopVoting = () => {
-    const { post, contentType} = this.props
+    const { post, contentType, orderPosts, orderBy } = this.props
+
+    if(this.state.voting) {
+      setTimeout(() => this.setState({ voting: false }), 500)
+      orderPosts(orderBy)
+    }
+
     clearInterval(this.state.voteInterval)
+    this.setState({ voteInterval: null })        
     if(post.myUpvotes) {
       this.props.postVotesToServer(post.id, {
         option: 'upVote',
@@ -40,7 +50,7 @@ class Claps extends Component {
     const { post } = this.props
     return(
       <div className={`claps claps--${this.props.context}`}>
-        <span className="comments-list__vote-score">{post.voteScore}</span>
+        <span className={`comments-list__vote-score ${this.state.voting && 'comments-list__vote-score--voting'}`}>{post.voteScore}</span>
         <button
           className="claps__clap-button"
           onMouseDown={() => this.startVoting('upVote')}
@@ -70,7 +80,9 @@ class Claps extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => 
-  bindActionCreators({ addVoteLocally ,postVotesToServer }, dispatch)
+const mapStateToProps = ({ orderBy }) => ({ orderBy })
 
-export default connect(null, mapDispatchToProps)(Claps)
+const mapDispatchToProps = dispatch => 
+  bindActionCreators({ addVoteLocally ,postVotesToServer, orderPosts }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Claps)

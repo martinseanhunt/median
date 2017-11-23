@@ -45,6 +45,32 @@
   margin-bottom: 0;
 }
 
+.post-card__controls {
+  position: absolute;
+  bottom: 15px;
+  right: 16px;
+}
+
+.post-card__control-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}
+
+.post-card__edit {
+  color: rgb(52, 231, 154);
+  padding-left: 4px;
+  transform: translateY(1px);
+  padding-right: 5px;
+  display: inline-block;
+}
+
+.post-card__delete {
+  color: #f44242;
+}
+
 .post-card__meta { 
   display: flex;
   padding: 0 16px 16px 16px;

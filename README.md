@@ -2251,3 +2251,5 @@ If you have ideas for more “How To” recipes that should be on this page, [le
 18. VOting animations / styling
 
 19. Refactor ALL components
+
+20. Make controls a component

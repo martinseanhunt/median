@@ -19,7 +19,7 @@ export const COMMENT_DELETED = 'COMMENT_DELETED'
 export const SET_COMMENT_EDITING = 'SET_COMMENT_EDITING'
 export const COMMENT_UPDATED = 'COMMENT_UPDATED'
 
-export const recieveAllPosts = payload => ({
+export const recieveAllPosts = (payload) => ({
   type: RECIEVE_ALL_POSTS,
   payload
 })
@@ -27,6 +27,7 @@ export const recieveAllPosts = payload => ({
 export const getAllPosts = () => dispatch => (
   Api.getAllPosts()
     .then(posts => dispatch(recieveAllPosts(posts)))
+    .then(() => dispatch(orderPosts('date')))
 )
 
 export const orderPosts = payload => ({
@@ -171,10 +172,6 @@ export const setCommentEditing = (id, editing) => ({
   }
 })
 
-
-// Not currently utilising this action in any way. If we save the votescore as it comes back from 
-// the server, it could look strange if more than one person was voting at the same time because 
-// the returned value wouldn't match your # of votes. Better to get other peoples votes on refresh
 export const upvotesSaved = payload => ({
   type: VOTES_SAVED_TO_SERVER,
   payload

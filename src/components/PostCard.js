@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import striptags from 'striptags'
 import moment from 'moment'
+import FontAwesome from 'react-fontawesome'
 
 import '../styles/PostCard.css'
 import Claps from '../containers/Claps'
@@ -30,10 +31,15 @@ class PostCard extends Component {
             <p className="post-card__body"><Link to={postLink}>{body}</Link></p>
           </div>
 
-          <Claps post={post} context="PostCard" />
-
-          <button onClick={() => deletePost(post.id)}>Delete Post</button>
-          <Link to={`/${post.category}/${post.id}/edit`}>Edit Post</Link>
+          <div className="post-card__controls">
+            <Claps post={post} context="PostCard" />
+            <Link to={`/${post.category}/${post.id}/edit`} className="post-card__control-button post-card__edit">
+              <FontAwesome name='pencil-square-o'/>
+            </Link>
+            <button onClick={() => deletePost(post.id)} className="post-card__control-button post-card__delete">
+              <FontAwesome name='trash '/>
+            </button>
+          </div>
 
           <div className="post-card__meta">
             <div className="post-card__user-image"></div>

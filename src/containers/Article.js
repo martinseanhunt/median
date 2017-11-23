@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+import FontAwesome from 'react-fontawesome'
+
 
 import { getPost, deletePost } from '../actions'
 import NotFound from '../components/NotFound'
@@ -62,17 +64,18 @@ class Article extends Component {
               </div>
             </div>
           )}
-          
-          <Claps post={activePost} context="Article"/>
 
           <div className="article__categories">
             <span className="article__category">
-              <Link to={`/categories/${activePost.category}`}>{activePost.category}</Link>
+              <Link to={`/${activePost.category}`}>{activePost.category}</Link>
             </span>
           </div>
 
-          <button onClick={this.deletePost}>Delete Post</button>
-          <Link to={`/${activePost.category}/${activePost.id}/edit`}>Edit Post</Link>
+          <div className="article__controls">
+            <Claps post={activePost} context="Article"/>
+            <Link to={`/${activePost.category}/${activePost.id}/edit`} className="article__edit"><FontAwesome name='pencil-square-o'/></Link>
+            <button onClick={this.deletePost} className="article__delete"><FontAwesome name='trash'/></button>
+          </div>
 
         </div>
 

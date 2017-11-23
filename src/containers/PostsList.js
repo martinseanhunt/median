@@ -10,12 +10,14 @@ import { sortPostsSelector } from '../reducers/posts_reducer'
 
 class PostList extends Component { 
 
-  orderBy = attr => {
+  onOrderBy = attr => {
     this.props.orderPosts(attr)
   }
 
   render() {
     const { posts, title, orderBy, category } = this.props
+
+    console.log(posts)
 
     const filteredPosts = category 
       ? posts.filter(post => post.category === category )
@@ -30,7 +32,7 @@ class PostList extends Component {
             <span>Order By: </span>
             <DropDown 
             items={[{ name: 'date' }, { name: 'score' }, { name: 'title' }]}
-            onSelect={this.orderBy}
+            onSelect={this.onOrderBy}
             selectedItem={orderBy || 'Order By'}
             />
           </div>
@@ -49,7 +51,7 @@ class PostList extends Component {
 const mapStateToProps = ({ orderBy, posts }) => { 
   return {
     orderBy,
-    posts: sortPostsSelector(posts, orderBy)
+    posts 
   }
 }
 

@@ -29,8 +29,8 @@ class Header extends Component {
       <header className={`row header ${this.headerModifier()}`}>
         <div className="header__inner grid">
           <div className="grid__col grid__col--1 grid__col--alignleft">
-            {page === '/' || urlSegments[1] === 'categories'
-              ? <Link to={`/post/${urlSegments[2] || ''}`} className="btn">Write a post</Link>
+            {page === '/' || this.isCatPage(page, categories) > 0
+              ? <Link to={`/post/${urlSegments[1] || ''}`} className="btn">Write a post</Link>
               : <Link to="/" className="btn">Home</Link>
             }
           </div>
@@ -38,7 +38,7 @@ class Header extends Component {
             <h1 className="header__heading"><Link to="/">Median</Link></h1>
           </div>
           <div className="grid__col grid__col--1 grid__col--alignright">
-            Search & user <span role="img" aria-label="construction emoji">🛠</span>
+            <span role="img" aria-label="construction emoji">🛠</span>
           </div>
 
           {(page === '/' || this.isCatPage(page, categories) > 0) &&

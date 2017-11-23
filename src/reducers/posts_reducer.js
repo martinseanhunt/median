@@ -41,6 +41,20 @@ export function posts(state = {}, action) {
       return state.filter(post => post.id !== action.payload)
     case POST_EDITED: 
       return [...state.filter(post => post.id !== action.payload.id), action.payload]
+    case ORDER_POSTS: 
+      console.log('sorting posts', action.payload)
+      return [...state.sort((a,b) => {
+        switch(action.payload) {
+          case 'score':
+            return a.voteScore < b.voteScore
+          case 'title':
+            return a.title > b.title
+          case 'date':
+            console.log(a, b)
+            return a.timestamp < b.timestamp
+        }                       
+      })]
+      
     default: 
       return state
   }
@@ -80,7 +94,20 @@ export function orderBy(state = 'date', action) {
   }
 }
 
+export function voting(state = false, action) {
+  switch(action.type) {
+    case SAVE_UPVOTE_LOCALLY:
+    case SAVE_DOWNVOTE_LOCALLY:
+      return true
+    case RESET_LOCAL_VOTES:
+      return false
+    default:
+      return state
+  }
+}
+
 export function sortPostsSelector(posts, orderBy) {
+  console.log('resorting posts')
   const sortPosts = (a,b) => {
     switch(orderBy) {
       case 'score':
