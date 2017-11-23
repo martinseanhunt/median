@@ -2,22 +2,27 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import striptags from 'striptags'
 import moment from 'moment'
 import FontAwesome from 'react-fontawesome'
+import sanitizeHtml from 'sanitize-html'
 
 import '../styles/PostCard.css'
 import Claps from '../containers/Claps'
 import { deletePost } from '../actions'
 
 class PostCard extends Component {
+  striptags = html => sanitizeHtml(html, {
+    allowedTags: [],
+    allowedAttributes: {}
+  })
+
   render() {
     const { post, deletePost } = this.props
     const title = post.updates ? post.updates.title : post.title
     const fullBody = post.updates ? post.updates.body : post.body
     const body = fullBody.length < 85
-      ? striptags(fullBody)
-      : striptags(fullBody.substring(0,85) + '...')
+      ? this.striptags(fullBody)
+      : this.striptags(fullBody.substring(0,85) + '...')
     const postLink = `/${post.category}/${post.id}`
 
     return(

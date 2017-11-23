@@ -1,5 +1,5 @@
 
-const api = "http://localhost:3001"
+const api = process.env.REACT_APP_API_URL
 
 const headers = {
   'Accept': 'application/json',

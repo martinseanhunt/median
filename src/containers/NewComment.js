@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import uuidv1 from 'uuid/v1'
 import Editor from 'react-medium-editor'
 import sanitizeHtml from 'sanitize-html'
-import striptags from 'striptags'
 import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/default.css'
 
@@ -50,9 +49,9 @@ class NewComment extends Component{
   onCommentSubmit = e => {
     e.preventDefault()
 
-    // Need to use strip tags here otherwise if you start writing a comment and delete everything
+    // Need to strip html tags here otherwise if you start writing a comment and delete everything
     // You can submit a blank comment that will just have <p></p> in it
-    const body = striptags(this.state.body)
+    const body = this.striptags(this.state.body)
 
     if (!this.state.author || !body ){
       setTimeout(function(){
@@ -73,6 +72,11 @@ class NewComment extends Component{
     this.setState({ showForm: false })
     this.setState({ showConfirm: true })
   }
+
+  striptags = html => sanitizeHtml(html, {
+    allowedTags: [],
+    allowedAttributes: {}
+  })
 
   render() {
     return (
