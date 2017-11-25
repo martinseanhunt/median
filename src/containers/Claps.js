@@ -60,6 +60,9 @@ class Claps extends Component {
             onMouseDown={() => this.startVoting('upVote')}
             onMouseUp={this.stopVoting}
             onMouseOut={this.stopVoting}
+            onTouchStart={() => this.startVoting('upVote')}
+            onTouchEnd={this.stopVoting}
+            onTouchMove={this.stopVoting}
           ></div>
           <svg className="comments-list__clap" width="25" height="25" viewBox="0 0 25 25">
             <g>
@@ -79,6 +82,9 @@ class Claps extends Component {
             onMouseDown={() => this.startVoting('downVote')}
             onMouseUp={this.stopVoting}
             onMouseOut={this.stopVoting}
+            onTouchStart={() => this.startVoting('downVote')}
+            onTouchEnd={this.stopVoting}
+            onTouchMove={this.stopVoting}
           ></div>
           <FontAwesome name='thumbs-o-down'/>
         </button>
