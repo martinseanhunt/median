@@ -26,7 +26,7 @@ npm start
 
 ## Demo
 
-A working demo is available, running on now, at https://median-kindpxoesr.now.sh**
+A working demo is available, running on now, at https://median-kindpxoesr.now.sh
 
 **Note: Don't forget to try holding down the vote button and higlighting some text when posting / editing :)**
 
