@@ -6,8 +6,10 @@ Median is my Redux project submission for Udacities React Nanodegree program and
 
 2. CD in to the api server directory and run 
 
-### npm install
-### npm start
+```
+npm install
+npm start
+```
 
 **Note: THis is important as I've made some slight modifications to the standard readable api server.** 
 
@@ -17,8 +19,10 @@ Median is my Redux project submission for Udacities React Nanodegree program and
 
 2. Cd in to the median directory and run 
 
-### npm install
-### npm start
+```
+npm install
+npm start
+```
 
 ## Demo
 
