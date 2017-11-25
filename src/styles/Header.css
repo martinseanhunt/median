@@ -34,6 +34,10 @@
   text-align: right;
 }
 
+.header__udacity span { 
+  opacity: 0;
+}
+
 @media(max-width: 869px) {
   .header__site-title, .header__button {
     flex-basis: 50%;

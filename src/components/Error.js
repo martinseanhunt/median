@@ -1,7 +1,7 @@
 import React from 'react'
-import '../styles/ValidationErrors.css'
+import '../styles/Error.css'
 
-function ValidationErrors(props) {
+function Error(props) {
   return (
     <div className="error">
       <span className="error__message">{props.errors.length ? props.errors : 'Please fill in all fields...'}</span> 
@@ -10,4 +10,4 @@ function ValidationErrors(props) {
   )
 }
 
-export default ValidationErrors
+export default Error

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import '../styles/Header.css'
-import Categories from '../containers/Categories'
+import Categories from './Categories'
 
 // The header component won't get the route spedific values of props.match because it's 
 // not being rendered from within the routes. That's why I'm grabbing using this.props.page
@@ -14,7 +14,7 @@ class Header extends Component {
 
   headerModifier = () => {
     const { page, categories } = this.props
-    return this.props.page === '/' || this.isCatPage(page, categories)
+    return page === '/' || this.isCatPage(page, categories)
       ? ''
       : 'header--page'
   }
@@ -35,7 +35,7 @@ class Header extends Component {
             <h1 className="header__heading"><Link to="/">Median</Link></h1>
           </div>
           <div className="header__right-col grid__col grid__col--1 grid__col--alignright desktop-only">
-            <a href="http://udacity.com" className="header__udacity"></a>
+            <a href="http://udacity.com" className="header__udacity"><span>Udacity</span></a>
           </div>
 
           {(page === '/' || this.isCatPage(page, categories) > 0) &&

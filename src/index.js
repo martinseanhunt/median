@@ -10,7 +10,7 @@ import logger from 'redux-logger'
 
 // Martyware
 import rootReducer from './reducers'
-import App from './containers/App';
+import App from './components/App';
 
 import './styles/index.css';
 

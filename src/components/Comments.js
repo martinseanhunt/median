@@ -4,16 +4,14 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Editor from 'react-medium-editor'
 import sanitizeHtml from 'sanitize-html'
-import Loading from '../components/Loading'
 import moment from 'moment'
 import FontAwesome from 'react-fontawesome'
 
-import '../styles/CommentsList.css'
-import Claps from '../containers/Claps'
-import NewComment from '../containers/NewComment'
+import '../styles/Comments.css'
+import Loading from './Loading'
+import Claps from './Claps'
+import CommentForm from './CommentForm'
 import { getComments, deleteComment, setCommentEditing, updateComment } from '../actions'
-
-const createMarkup = body => ({__html: body})
 
 class Comments extends Component {
   state = { editingBody: '' }
@@ -28,14 +26,16 @@ class Comments extends Component {
     this.props.setCommentEditing(id, true)
   }
 
+  createMarkup = body => ({__html: body})
+
   render() {
-    const { activePost, activeComments, deleteComment } = this.props
+    const { activePost, activeComments, deleteComment, updateComment, setCommentEditing } = this.props
 
     return (
       <div className="comments">
         <div className="comments__inner">
           <h4 className="comments__heading">Responses ({activeComments.comments.length})</h4>
-          <NewComment postId={activePost.id} />
+          <CommentForm postId={activePost.id} />
           <div className="comments-list">
             {activeComments.loading && 
               <Loading />
@@ -52,7 +52,7 @@ class Comments extends Component {
                 {!comment.editing ? (
                   <div 
                     className="comments-list__body" 
-                    dangerouslySetInnerHTML={createMarkup(comment.body)}
+                    dangerouslySetInnerHTML={this.createMarkup(comment.body)}
                   ></div>
                 ) : (
                   <div>
@@ -82,8 +82,8 @@ class Comments extends Component {
                     </div>
                   ) : (
                     <div>
-                      <button className="btn" onClick={() => this.props.updateComment(comment.id, this.state.editingBody)}>Save Edits</button>
-                      <button className="btn" onClick={() => this.props.setCommentEditing(comment.id, false)}>Cancel</button>
+                      <button className="btn" onClick={() => updateComment(comment.id, this.state.editingBody)}>Save Edits</button>
+                      <button className="btn" onClick={() => setCommentEditing(comment.id, false)}>Cancel</button>
                     </div>
                   )}
                 </div>                
@@ -101,13 +101,12 @@ const mapStateToProps = ({ activePost, loading, activeComments }) => ({
   activeComments
 })
 
-const mapDispatchToProps = dispatch => (
+const mapDispatchToProps = dispatch =>
   bindActionCreators({
     getComments,
     deleteComment,
     updateComment,
     setCommentEditing
   }, dispatch)
-)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Comments))

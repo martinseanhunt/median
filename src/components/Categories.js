@@ -20,8 +20,6 @@ class Categories extends Component {
   }
 }
 
-const mapStateToProps = ({ categories }) => (
-  { categories }
-)
+const mapStateToProps = ({ categories }) => ({ categories })
 
 export default connect(mapStateToProps)(Categories)

@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import FontAwesome from 'react-fontawesome'
 
-
 import { getPost, deletePost } from '../actions'
-import NotFound from '../components/NotFound'
-import Loading from '../components/Loading'
+import NotFound from './NotFound'
+import Loading from './Loading'
 import Claps from './Claps'
-import Comments from '../components/Comments'
+import Comments from './Comments'
 import '../styles/Article.css'
 
 class Article extends Component {
 
   componentDidMount() {
-    const id = this.props.match.params.id
-    if (id !== this.props.activePost.id)
+    const { match, activePost } = this.props
+    const id = match.params.id
+    if (id !== activePost.id)
       this.props.getPost(id)
   }
 
@@ -91,11 +91,10 @@ const mapStateToProps = ({ activePost, loading, activeComments }) => ({
   loading
 })
 
-const mapDispatchToProps = dispatch => (
+const mapDispatchToProps = dispatch =>
   bindActionCreators({
     getPost,
     deletePost
   }, dispatch)
-)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article)

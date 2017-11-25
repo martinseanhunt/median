@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import '../styles/PostsList.css';
-import PostCard from '../components/PostCard'
-import DropDown from '../components/DropDown'
+import PostCard from './PostCard'
+import DropDown from './DropDown'
 import { orderPosts } from '../actions'
 
 class PostList extends Component { 

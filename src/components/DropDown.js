@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/DropDown.css'
 
-class CategoryDropdown extends Component{
+class DropDown extends Component{
   state = {
     isOpen: false,
   }
@@ -38,6 +38,8 @@ class CategoryDropdown extends Component{
   isSelectedClass = name => ( name === this.props.selectedItem )
 
   render() {
+    const { selectedItem, items } = this.props
+
     return (
       <div className="dropdown">
         <span 
@@ -45,7 +47,7 @@ class CategoryDropdown extends Component{
           onClick={this.toggleDropdown}
           ref={this.setTriggerRef}
         >
-          {this.props.selectedItem} 
+          {selectedItem} 
           <svg className="dropdown__icon" width="19" height="19">
             <path d="M3.9 6.772l5.205 5.756.427.472.427-.472 5.155-5.698-.854-.772-4.728 5.254L4.753 6z" />
           </svg>
@@ -54,7 +56,7 @@ class CategoryDropdown extends Component{
         {this.state.isOpen &&
           <div className="dropdown__dropdown" ref={this.setDropdownRef}>
             <ul className="dropdown__list">
-              {this.props.items.map(item => (
+              {items.map(item => (
                 <li 
                   key={item.name}
                   onClick={(e) => this.handleSelect(e, item.name)}
@@ -80,4 +82,4 @@ class CategoryDropdown extends Component{
   }
 }
 
-export default CategoryDropdown
+export default DropDown

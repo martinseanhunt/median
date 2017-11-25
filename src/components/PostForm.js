@@ -10,10 +10,10 @@ import 'medium-editor/dist/css/themes/default.css'
 
 import '../styles/NewPost.css'
 import { createNewPost, editPost, orderPosts, clearErrors } from '../actions'
-import DropDown from '../components/DropDown'
-import ValidationErrors from '../components/ValidationErrors'
+import DropDown from './DropDown'
+import Error from './Error'
 
-class NewPost extends Component {
+class PostForm extends Component {
   constructor(props) {
     super(props)
     const { editing, match } = this.props
@@ -47,6 +47,8 @@ class NewPost extends Component {
 
   onSubmitPost = (e) => {
     const btnVal = e.target.innerHTML
+    const { createNewPost, orderPosts, error, history } = this.props
+
     e.persist()
     e.target.disabled = true
     e.target.innerHTML = 'Loading...'
@@ -64,7 +66,7 @@ class NewPost extends Component {
     const id = uuidv1()
     // I don't think this is the way to handle the error when the post is too long but I couldn't
     // Figure out how else to do it? Help?
-    this.props.createNewPost({
+    createNewPost({
       id,
       timestamp: Date.now(),
       title: this.state.title,
@@ -73,15 +75,17 @@ class NewPost extends Component {
       author: this.state.author
     })
     .then(() => {
-      this.props.orderPosts(this.props.orderBy)
+      orderPosts(this.props.orderBy)
       e.target.disabled = false
       e.target.innerHTML = btnVal
-      !this.props.error.error && this.props.history.push(`/${this.state.selectedCategory}/${id}`)
+      !error.error && history.push(`/${this.state.selectedCategory}/${id}`)
     })
   }
 
   onEditPost = (e) => {
     const btnVal = e.target.innerHTML
+    const { editPost, editing, orderPosts, orderBy, error, history } = this.props
+
     e.persist()
     e.target.disabled = true
     e.target.innerHTML = 'Loading...'
@@ -95,15 +99,15 @@ class NewPost extends Component {
       return this.setState({ validationErrors: true })
     }
 
-    this.props.editPost(this.props.editing.id, {
+    editPost(editing.id, {
       title: this.state.title,
       body: this.sanitize(this.state.body)
     })
     .then(() => {
-      this.props.orderPosts(this.props.orderBy)
+      orderPosts(orderBy)
       e.target.disabled = false
       e.target.innerHTML = btnVal
-      !this.props.error.error && this.props.history.push(`/${this.state.selectedCategory}/${this.props.editing.id}`)
+      !error.error && history.push(`/${this.state.selectedCategory}/${editing.id}`)
     })
   }
 
@@ -112,7 +116,7 @@ class NewPost extends Component {
   scrollTop = () => document.body.scrollTop = document.documentElement.scrollTop = 0
 
   render() {
-    const { editing, error } = this.props
+    const { editing, error, categories } = this.props
     const type = editing ? 'Editing' : 'Draft'
 
     error.error && this.scrollTop()
@@ -122,7 +126,7 @@ class NewPost extends Component {
         <div className="grid__col grid__col--3">
           <div className="post-form">
             {(this.state.validationErrors || error.error ) && 
-              <ValidationErrors errors={error.error || 'Please fill in all fields'}/>
+              <Error errors={error.error || 'Please fill in all fields'}/>
             }
             
             {editing ? (
@@ -133,7 +137,7 @@ class NewPost extends Component {
               <div className="post-form__header">
                 <span className="post-form__dropdown-title">Post to category: </span>
                 <DropDown 
-                items={this.props.categories}
+                items={categories}
                 onSelect={this.onSelect}
                 selectedItem={this.state.selectedCategory || 'Select Category'}
                 />
@@ -208,4 +212,4 @@ const mapDispatchToProps = dispatch => {
   }, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewPost))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostForm))

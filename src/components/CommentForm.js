@@ -8,10 +8,10 @@ import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/default.css'
 
 import { createNewComment } from '../actions'
-import ValidationErrors from '../components/ValidationErrors'
+import Error from './Error'
 import '../styles/NewComment.css'
 
-class NewComment extends Component{
+class CommentForm extends Component{
   state = {
     body: '',
     author: '',
@@ -89,7 +89,7 @@ class NewComment extends Component{
         }
 
         {this.state.validationErrors && 
-          <ValidationErrors />
+          <Error />
         }
         <form 
           className={`comment-form ${!this.state.showForm && 'comment-form--preview'}`}
@@ -133,4 +133,4 @@ class NewComment extends Component{
 const mapDispatchToProps = dispatch => 
   bindActionCreators({ createNewComment }, dispatch)
 
-export default connect(null, mapDispatchToProps)(NewComment)
+export default connect(null, mapDispatchToProps)(CommentForm)

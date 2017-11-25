@@ -7,7 +7,7 @@ import FontAwesome from 'react-fontawesome'
 import sanitizeHtml from 'sanitize-html'
 
 import '../styles/PostCard.css'
-import Claps from '../containers/Claps'
+import Claps from './Claps'
 import { deletePost } from '../actions'
 
 class PostCard extends Component {
@@ -20,13 +20,16 @@ class PostCard extends Component {
     const { post, deletePost } = this.props
     const fullTitle = post.updates ? post.updates.title : post.title
     const fullBody = post.updates ? post.updates.body : post.body
+    
     const body = fullBody.length < 85
       ? this.striptags(fullBody)
       : this.striptags(fullBody.substring(0,85) + '...')
-    const title = fullTitle.length < 60
+    
+      const title = fullTitle.length < 60
       ? this.striptags(fullTitle)
       : this.striptags(fullTitle.substring(0,60) + '...')
-    const postLink = `/${post.category}/${post.id}`
+    
+      const postLink = `/${post.category}/${post.id}`
 
     return(
       <div className="grid__col grid__col--1 post-card">

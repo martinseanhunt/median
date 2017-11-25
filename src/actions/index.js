@@ -26,11 +26,15 @@ export const recieveAllPosts = (payload) => ({
   payload
 })
 
-export const getAllPosts = () => dispatch => (
+export const getAllPosts = () => dispatch => {
+  dispatch(setLoading(true))
   Api.getAllPosts()
     .then(posts => dispatch(recieveAllPosts(posts)))
-    .then(() => dispatch(orderPosts('date')))
-)
+    .then(() => {
+      dispatch(orderPosts('date'))
+      dispatch(setLoading(false))
+    })
+}
 
 export const orderPosts = payload => ({
   type: ORDER_POSTS,
