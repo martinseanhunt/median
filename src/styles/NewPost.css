@@ -110,6 +110,20 @@
   line-height: 33.18px;
 }
 
+@media(max-width: 600px) {
+  .post-form__title {
+    font-size: 22px;
+    line-height: 33px;
+    margin-top: 40px;
+  }
+  
+  .post-form__body  {
+    font-size: 18px;
+    line-height: 30px;
+  }
+}
+
+
 @keyframes dot-animate{
   0%{
     box-shadow:0 0 0 0 #34e79a

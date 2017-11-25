@@ -18,11 +18,14 @@ class PostCard extends Component {
 
   render() {
     const { post, deletePost } = this.props
-    const title = post.updates ? post.updates.title : post.title
+    const fullTitle = post.updates ? post.updates.title : post.title
     const fullBody = post.updates ? post.updates.body : post.body
     const body = fullBody.length < 85
       ? this.striptags(fullBody)
       : this.striptags(fullBody.substring(0,85) + '...')
+    const title = fullBody.title < 60
+      ? this.striptags(fullTitle)
+      : this.striptags(fullTitle.substring(0,60) + '...')
     const postLink = `/${post.category}/${post.id}`
 
     return(
