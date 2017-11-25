@@ -23,7 +23,7 @@ class PostCard extends Component {
     const body = fullBody.length < 85
       ? this.striptags(fullBody)
       : this.striptags(fullBody.substring(0,85) + '...')
-    const title = fullBody.title < 60
+    const title = fullTitle.length < 60
       ? this.striptags(fullTitle)
       : this.striptags(fullTitle.substring(0,60) + '...')
     const postLink = `/${post.category}/${post.id}`
