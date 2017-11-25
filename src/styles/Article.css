@@ -1,7 +1,7 @@
 .article__inner {
   max-width: 740px;
   margin: 0 auto;
-  padding-top: 35px;
+  padding: 35px 10px 0 10px;
 }
 
 .article__meta { 
@@ -53,7 +53,7 @@
   color: rgba(0,0,0,.68);
   background: rgba(0,0,0,.05);
   border-radius: 3px;
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 0;
   display: inline-block;
   padding: 8px 10px;
   font-size: 14px;
@@ -61,6 +61,11 @@
 
 .article__category a {
   text-decoration: none;
+  color: rgba(0,0,0,.68);
+}
+
+.article__controls {
+  text-align: center
 }
 
 .article__controls button {
@@ -74,41 +79,83 @@
   cursor: pointer;
   outline: none;
   padding: 0;
+  display: block;
+  text-align: center;
+  width: 160px;
+  margin: 0 auto;
 }
 
 .article__edit {  
   padding-left: 4px;
-  transform: translateY(1px);
-  padding-right: 5px;
-  display: inline-block;
-  display: block;
+  width: 60px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: rgba(0,0,0,.68);
 }
 
 .article__delete {
-  display: block;
+  width: 60px;
+  font-size: 16px;
+  cursor: pointer;
+  color: rgba(0,0,0,.68);
 }
 
-.article__controls {
-  position: fixed;
-  top: 150px;
-  transform: translateX(-150px);
+@media(max-width: 1000px) {
+  .article__controls {
+    border-top: 1px solid rgba(0,0,0,.05)!important;
+    padding-top: 30px;
+    margin-top: 30px;
+    text-align: left;
+    position: relative;
+  }
+
+  .article__edit, .article__delete {
+    font-size: 22px;
+    position: absolute;    
+  }
+
+  .article__edit {
+    top: 51px;
+    right: 5px;
+  }
+
+  .article__delete {
+    top: 48px;
+    right: -20px;
+  }
+}
+
+@media(min-width: 1000px) {
+  .article__edit, .article__delete {
+    display: block;
+  }
+
+  .article__controls {
+    position: fixed;
+    top: 150px;
+    transform: translateX(-126px);
+  }
 }
 
 .comments {
   background: rgb(250, 250, 250);
   padding: 35px 0;
-  margin-top: 50px;
+  margin-top: 30px;
   min-height: 400px;
 }
 
 .comments__inner {
   max-width: 740px;
   margin: 0 auto;
-  padding-top: 35px;
+  padding: 35px 10px 0 10px;
 }
 
 .comments__heading {
   color: rgba(0,0,0,.68);
   font-size: 14px;
   margin: 0 0 10px 0;
+}
+
+@media(min-width: 1000px) {
+  .comments { margin-top: 50px; }
 }

@@ -1,12 +1,13 @@
 .post-card {
   text-decoration: none;
+  overflow: visible;
 }
 
 .post-card__inner { 
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 2px;
   margin-bottom: 20px;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
@@ -47,7 +48,7 @@
 
 .post-card__controls {
   position: absolute;
-  bottom: 15px;
+  bottom: 20px;
   right: 16px;
 }
 
@@ -57,10 +58,15 @@
   cursor: pointer;
   outline: none;
   padding: 0;
+  font-size: 13px;
+}
+
+.post-card__control-button:hover {
+  opacity: 0.8;
 }
 
 .post-card__edit {
-  color: rgb(52, 231, 154);
+  color: rgba(0,0,0,.68);
   padding-left: 4px;
   transform: translateY(1px);
   padding-right: 5px;
@@ -68,7 +74,7 @@
 }
 
 .post-card__delete {
-  color: #f44242;
+  color: rgba(0,0,0,.68);;
 }
 
 .post-card__meta { 

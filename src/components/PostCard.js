@@ -35,9 +35,9 @@ class PostCard extends Component {
             <h3 className="post-card__title"><Link to={postLink}>{title}</Link></h3>
             <p className="post-card__body"><Link to={postLink}>{body}</Link></p>
           </div>
+          <Claps post={post} context="PostCard" />
 
           <div className="post-card__controls">
-            <Claps post={post} context="PostCard" />
             <Link to={`/${post.category}/${post.id}/edit`} className="post-card__control-button post-card__edit">
               <FontAwesome name='pencil-square-o'/>
             </Link>

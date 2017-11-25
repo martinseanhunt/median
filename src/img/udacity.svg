@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="30" height="30" viewBox="0 0 30 30" alt="Udacity" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs xmlns="http://www.w3.org/1999/xhtml"><style type="text/css"><![CDATA[
+iframe#_hjRemoteVarsFrame { display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important; }
+#chat { position: fixed; right: 24px; bottom: 24px; z-index: 7000; cursor: pointer; }
+#rupertChatWrapper .send-view { padding-bottom: 2.3em; }
+#rupertChatWrapper .menu { bottom: 72px; }
+#rupertChatWrapper .persistent-menu .ham-menu { top: 22%; }
+#rupertChatWrapper .persistent-menu .ham-menu::before { background: rgb(2, 179, 228); box-shadow: rgb(2, 179, 228) 0px 6px, rgb(2, 179, 228) 0px 12px; }
+#rupertChatWrapper form input { background-color: rgb(255, 255, 255); padding: 12px; height: 36px; }
+#rupertChatWrapper .generic-item { border: none; }
+#rupertChatWrapper .call-to-actions .button { box-shadow: rgba(46, 61, 73, 0.2) 0px 1px 5px 0px; margin-bottom: 12px; height: auto; }
+#rupertChatWrapper .generic-item .call-to-actions .button:first-of-type, #rupertChatWrapper .generic-item .call-to-actions .button:last-of-type { padding-top: 0px; padding-bottom: 0px; }
+#rupertChatWrapper .generic-item .button { padding: 0px; }
+#rupertChatWrapper .msg-body { border-radius: 6px; }
+#rupertChatWrapper .user .msg-body { background-color: rgb(2, 179, 228); }
+#rupertChatWrapper .generic-item .call-to-actions { color: rgb(2, 179, 228); }
+#rupertChatWrapper .generic-item .button + .button { border-top: none; }
+#rupertChatWrapper #powered-by { padding-bottom: 11px; padding-right: 7px; }
+#icon-chat-bubble-call-to-action { animation: bounceInUp 1s 1; }
+.icon-chat-bubble-call-to-action-close-background { transform: translateX(204px) translateY(30px); fill: rgba(255, 255, 255, 0.1); }
+.icon-chat-bubble-call-to-action-cls-1:hover, .icon-chat-bubble-call-to-action-cls-2:hover, .icon-chat-bubble-call-to-action-cls-2 tspan:hover, .icon-chat-bubble-call-to-action-cls-3:hover, .icon-chat-bubble-call-to-action-cls-4:hover, .icon-chat-bubble-call-to-action-close:hover, .icon-chat-bubble-call-to-action-close-background:hover { cursor: pointer; }
+.icon-chat-bubble-call-to-action-close { transform-origin: 50% 50% 0px; transform: translateX(200px) translateY(26px); fill: rgba(255, 255, 255, 0.5); }
+.icon-chat-bubble-call-to-action-close-background:hover ~ .icon-chat-bubble-call-to-action-close, .icon-chat-bubble-call-to-action-close:hover { transform-origin: 50% 50% 0px; transform: translateX(200px) translateY(26px) scale(1.5, 1.5); fill: white; }]]></style></defs>
+  <path id="mark" fill="rgba(0,0,0,.54)" fill-rule="evenodd" d="M29 .5l1 .5v13c0 5.551887-2.8897 8.695692-5.995216 10.099885L24.0094 24.1l-7.620963 4.388562c-.05877.03456-.11776.068527-.176957.101902l-.08642.049764.001806-.00254C14.48289 29.545895 12.684682 30 11 30 6 30 0 26 0 18V6l2 1v11c0 8 6 10 9 10 1.858706 0 4.86901-.76773 6.89043-3.254517C14.181726 23.872636 10 20.678703 10 14V2.2L2 7 0 6l10-6 1 .5 1 .5v13c0 6.939958 4.515283 8.612086 7.017542 8.933368C19.625786 21.62159 20 19.997902 20 18V5l2 1v12c0 1.852645-.321777 3.49077-.878395 4.91438C23.648223 22.549217 28 20.813144 28 14V2.25L22 6l-2-1 8-5 1 .5z"/>
+</svg>

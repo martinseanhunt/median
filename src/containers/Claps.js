@@ -9,7 +9,8 @@ import '../styles/Claps.css'
 class Claps extends Component {
   state = {
     voting: false,
-    voteInterval: null
+    voteInterval: null,
+    animateVoting: false
   }
 
   startVoting = (voteType) => {
@@ -20,19 +21,19 @@ class Claps extends Component {
     const voteInterval = setInterval(() => {
         this.props.addVoteLocally(post.id, voteType)
     }, 200)
-    this.setState({ voteInterval })
+    this.setState({ voteInterval, animateVoting: voteType })
   }
 
   stopVoting = () => {
     const { post, contentType, orderPosts, orderBy } = this.props
-
+   
     if(this.state.voting) {
-      setTimeout(() => this.setState({ voting: false }), 500)
+      setTimeout(() => this.setState({ voting: false }), 300)
       orderPosts(orderBy)
     }
 
     clearInterval(this.state.voteInterval)
-    this.setState({ voteInterval: null })        
+    this.setState({ voteInterval: null, animateVoting: false })        
     if(post.myUpvotes) {
       this.props.postVotesToServer(post.id, {
         option: 'upVote',
@@ -52,11 +53,14 @@ class Claps extends Component {
       <div className={`claps claps--${this.props.context}`}>
         <span className={`comments-list__vote-score ${this.state.voting && 'comments-list__vote-score--voting'}`}>{post.voteScore}</span>
         <button
-          className="claps__clap-button"
-          onMouseDown={() => this.startVoting('upVote')}
-          onMouseUp={this.stopVoting}
-          onMouseOut={this.stopVoting}
+          className={`claps__button claps__clap-button ${this.state.animateVoting === 'upVote' && 'popping'}`}
         >
+          <div 
+            className="claps__button-target"
+            onMouseDown={() => this.startVoting('upVote')}
+            onMouseUp={this.stopVoting}
+            onMouseOut={this.stopVoting}
+          ></div>
           <svg className="comments-list__clap" width="25" height="25" viewBox="0 0 25 25">
             <g>
               <path d="M11.739 0l.761 2.966L13.261 0z"></path>
@@ -68,11 +72,14 @@ class Claps extends Component {
           </svg>
         </button>
         <button 
-          className="claps__boo-button"
-          onMouseDown={() => this.startVoting('downVote')}
-          onMouseUp={this.stopVoting}
-          onMouseOut={this.stopVoting}
+          className="claps__button claps__boo-button"
         >
+          <div 
+            className="claps__button-target"
+            onMouseDown={() => this.startVoting('downVote')}
+            onMouseUp={this.stopVoting}
+            onMouseOut={this.stopVoting}
+          ></div>
           <FontAwesome name='thumbs-o-down'/>
         </button>
       </div>

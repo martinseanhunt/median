@@ -6,6 +6,7 @@ import Editor from 'react-medium-editor'
 import sanitizeHtml from 'sanitize-html'
 import Loading from '../components/Loading'
 import moment from 'moment'
+import FontAwesome from 'react-fontawesome'
 
 import '../styles/CommentsList.css'
 import Claps from '../containers/Claps'
@@ -69,16 +70,20 @@ class Comments extends Component {
                   </div>
                 )}
                 <div className="comments-list__vote">
-                  <Claps post={comment} contentType="comment" context="CommentsList"/>
                   {!comment.editing ? (
                     <div>
-                      <button onClick={() => deleteComment(comment.id)}>Delete Comment</button>
-                      <button onClick={() => this.setEditing(comment.id, comment.body)}>Edit Comment</button>
+                      <Claps post={comment} contentType="comment" context="CommentsList"/>
+                      <button 
+                        className="comments-list__control comments-list__edit" 
+                        onClick={() => this.setEditing(comment.id, comment.body)}><FontAwesome name='pencil-square-o'/></button>
+                      <button 
+                        className="comments-list__control comments-list__trash" 
+                        onClick={() => deleteComment(comment.id)}><FontAwesome name='trash'/></button>
                     </div>
                   ) : (
                     <div>
-                      <button onClick={() => this.props.setCommentEditing(comment.id, false)}>Cancel</button>
-                      <button onClick={() => this.props.updateComment(comment.id, this.state.editingBody)}>Edit Comment</button>
+                      <button className="btn" onClick={() => this.props.updateComment(comment.id, this.state.editingBody)}>Save Edits</button>
+                      <button className="btn" onClick={() => this.props.setCommentEditing(comment.id, false)}>Cancel</button>
                     </div>
                   )}
                 </div>                

@@ -106,9 +106,9 @@ h3 {
   padding: 0;
 }
 
-.deskop-only { display: none; }
+.desktop-only { display: none; }
 
-@media (min-width: 500px) {
+@media (min-width: 869px) {
   .grid__col--1 { flex-basis: 33.3333%; max-width: 33.3333%; overflow: hidden; }
 
   .grid__col--2 { flex-basis: 50%; max-width: 50%; overflow: hidden; }
@@ -121,7 +121,7 @@ h3 {
 
   .grid__col--alignright { text-align: right; }
 
-  .deskop-only { display: block; }
+  .desktop-only { display: block; }
 }
 
 

@@ -46,17 +46,18 @@ class NewPost extends Component {
   })
 
   onSubmitPost = (e) => {
-    const btnVal = e.target.value
+    const btnVal = e.target.innerHTML
     e.persist()
     e.target.disabled = true
-    e.target.value = 'Loading...'
+    e.target.innerHTML = 'Loading...'
+
     if (!this.state.title || !this.state.body || !this.state.author || !this.state.selectedCategory ){
       setTimeout(function(){
         this.setState({validationErrors:false})
       }.bind(this),3000)
 
       e.target.disabled = false
-      e.target.value = btnVal
+      e.target.innerHTML = btnVal
       return this.setState({ validationErrors: true })
     }
 
@@ -74,16 +75,16 @@ class NewPost extends Component {
     .then(() => {
       this.props.orderPosts(this.props.orderBy)
       e.target.disabled = false
-      e.target.value = btnVal
+      e.target.innerHTML = btnVal
       !this.props.error.error && this.props.history.push(`/${this.state.selectedCategory}/${id}`)
     })
   }
 
   onEditPost = (e) => {
-    const btnVal = e.target.value
+    const btnVal = e.target.innerHTML
     e.persist()
     e.target.disabled = true
-    e.target.value = 'Loading...'
+    e.target.innerHTML = 'Loading...'
     if (!this.state.title || !this.state.body ){
       setTimeout(function(){
         this.setState({validationErrors:false});
@@ -101,7 +102,7 @@ class NewPost extends Component {
     .then(() => {
       this.props.orderPosts(this.props.orderBy)
       e.target.disabled = false
-      e.target.value = btnVal
+      e.target.innerHTML = btnVal
       !this.props.error.error && this.props.history.push(`/${this.state.selectedCategory}/${this.props.editing.id}`)
     })
   }

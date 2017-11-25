@@ -25,17 +25,17 @@ class Header extends Component {
     return (
       <header className={`row header ${this.headerModifier()}`}>
         <div className="header__inner grid">
-          <div className="grid__col grid__col--1 grid__col--alignleft">
+          <div className="header__button grid__col grid__col--1 grid__col--alignleft">
             {page === '/' || this.isCatPage(page, categories) > 0
               ? <Link to={`/post/${urlSegments[1] || ''}`} className="btn">Write a post</Link>
               : <Link to="/" className="btn">Home</Link>
             }
           </div>
-          <div className="grid__col grid__col--1 grid__col--aligncenter">
+          <div className="header__site-title grid__col grid__col--1 grid__col--aligncenter">
             <h1 className="header__heading"><Link to="/">Median</Link></h1>
           </div>
-          <div className="grid__col grid__col--1 grid__col--alignright">
-            <span role="img" aria-label="construction emoji">🛠</span>
+          <div className="header__right-col grid__col grid__col--1 grid__col--alignright desktop-only">
+            <a href="http://udacity.com" className="header__udacity"></a>
           </div>
 
           {(page === '/' || this.isCatPage(page, categories) > 0) &&
