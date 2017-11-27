@@ -1,4 +1,4 @@
-import * as Api from '../utils/Api.js'
+import * as Api from '../utils/api.js'
 
 export const RECIEVE_ALL_POSTS = 'RECIEVE_ALL_POSTS'
 export const RECIEVE_ALL_CATEGORIES = 'RECIEVE_ALL_CATEGORIES'
